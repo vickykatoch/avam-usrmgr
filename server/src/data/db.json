@@ -1,0 +1,86 @@
+{
+    "users": [{
+        "sid": "D573333",
+        "firstName": "Balwinder",
+        "lastName": "Katoch",
+        "active": true
+    }, {
+        "sid": "U567789",
+        "firstName": "Aryan",
+        "lastName": "Katoch",
+        "active": true
+    }],
+    "resources": [{
+        "id": 1,
+        "name": "SPDR Parameters",
+        "restricted": true,
+        "active": true
+    }, {
+        "id": 2,
+        "name": "Strategy Parameters",
+        "restricted": false,
+        "active": true
+    }, {
+        "id": 3,
+        "name": "Market Watch",
+        "restricted": false,
+        "active": true
+    }, {
+        "id": 4,
+        "name": "Market Ladder",
+        "restricted": true,
+        "active": true
+    }, {
+        "id": 5,
+        "name": "Order Blotter",
+        "restricted": true,
+        "active": true
+    }],
+    "roles": [{
+        "id": 1,
+        "name": "Administrator",
+        "supreme": true,
+        "active": true,
+        "acl": 32
+    }, {
+        "id": 2,
+        "name": "Dev Admin",
+        "supreme": false,
+        "active": true,
+        "acl": 16
+    }, {
+        "id": 3,
+        "name": "Trader",
+        "supreme": false,
+        "active": true,
+        "acl": 8
+    }],
+    "roleResources": [{
+        "role": 1,
+        "resources": [
+            1, 2, 3, 4, 5
+        ]
+    }, {
+        "role": 1,
+        "resources": [
+            1, 2, 3
+        ]
+    }],
+    "roleUsers": [{
+        "role": 1,
+        "users": [
+            "D573333"
+        ]
+    }, {
+        "role": 2,
+        "users": [
+            "D573333", "U567789"
+        ]
+    }],
+    "userOverrides": [{
+        "user": "D573333",
+        "resource": 1,
+        "acl": 16,
+        "active": true
+    }]
+}

@@ -1,0 +1,18 @@
+.desk-layout {
+    overflow: hidden;
+}
+
+.desk-layout .body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+.desk-layout  .menu-bar {
+    position: absolute;
+    right:0;
+    top:0;
+    bottom:0;
+    width: 200px;
+    background: var(--dark);
+    color: var(--light);
+}
