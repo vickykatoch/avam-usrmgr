@@ -6,6 +6,16 @@ body {
   display: flex;
   flex-grow: 1;
 }
+
 .no-shrink {
   flex-shrink: 0;
+}
+
+.hover-item {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.hover-item:hover {
+  opacity: 1;
 }

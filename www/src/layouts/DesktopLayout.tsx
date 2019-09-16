@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../common/Header";
 import "./DesktopLayout.css";
 import { connect } from "react-redux";
 import { IAppState } from "../store/models";
 import { Dispatch } from "redux";
-import { SideBarActionTypes, ToggleSideBarAction } from "../store/actions";
+import { SideBarActionTypes, toggleSideBar } from "../store/actions";
+import UserDataApi from "../api/user.api";
+import UserDashBoard from "../components/UserDashboard";
 
 interface ILocalProps {
   isOpen: boolean;
@@ -13,12 +15,15 @@ interface ILocalProps {
 
 const DesktopLayout = (props: ILocalProps) => {
   const { isOpen, toggle } = props;
-  debugger;
   return (
     <div className="d-flex flex-fill flex-column desk-layout">
-      <Header toggleMenu={toggle} />
+      <Header toggleMenu={toggle} isMenuOpen={isOpen} />
+
       <div className="d-flex flex-fill body">
-        <div className="d-flex flex-fill">Contents</div>
+        {isOpen ? <div className="overlay"></div> : null}
+        <div className="d-flex flex-fill">
+          <UserDashBoard></UserDashBoard>
+        </div>
         {isOpen ? <div className="menu-bar"></div> : null}
       </div>
     </div>
@@ -34,8 +39,7 @@ const mapStateToProps = (state: IAppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<SideBarActionTypes>) => {
   const actions = {
     toggle: () => {
-      const toggleAction = new ToggleSideBarAction();
-      dispatch(toggleAction);
+      dispatch(toggleSideBar());
     }
   };
   return actions;
