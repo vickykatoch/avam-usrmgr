@@ -80,7 +80,6 @@
     "userOverrides": [{
         "user": "D573333",
         "resource": 1,
-        "acl": 16,
-        "active": true
+        "acl": 16
     }]
 }
