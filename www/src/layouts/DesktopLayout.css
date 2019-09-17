@@ -18,9 +18,10 @@
     width: 200px;
     background: #000;
     color: var(--light);
+    border-left: 1px solid var(--gray);
 }
 
-.desk-layout .body .overlay {
+/* .desk-layout .body .overlay {
     position: absolute;
     z-index: 1;
     right: 0;
@@ -29,4 +30,4 @@
     left: 0;
     background: #000;
     opacity: 0.6;
-}
+} */
