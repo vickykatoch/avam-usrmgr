@@ -3,12 +3,16 @@
         "sid": "D573333",
         "firstName": "Balwinder",
         "lastName": "Katoch",
-        "active": true
+        "active": true,
+        "lastUpdate": 1555466368529,
+        "lastUpdatedBy": "U567789"
     }, {
         "sid": "U567789",
         "firstName": "Aryan",
         "lastName": "Katoch",
-        "active": true
+        "active": true,
+        "lastUpdate": 1552787988234,
+        "lastUpdatedBy": "U567789"
     }],
     "resources": [{
         "id": 1,

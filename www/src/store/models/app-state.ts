@@ -1,16 +1,8 @@
-import { IUserState, IUser } from "./user";
+import { IMeState, IUsersState } from "./user";
 import { ISideBarState } from "./side-bar-state";
 
 export interface IAppState {
-  me: IUserState;
+  meState: IMeState;
   sideBarState: ISideBarState;
-  users: IUser[];
+  usersState: IUsersState;
 }
-// export const DEFAULT_APP_STATE: IAppState = {
-//   me: {
-//     isLoaded: false
-//   },
-//   sideBarState: {
-//     isOpen: true
-//   }
-// };

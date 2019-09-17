@@ -1,15 +1,21 @@
-import { IUserState } from "../models/user";
+import { IMeState } from "../models/user";
 import { MeActionTypes, AppActionKeys } from "../actions";
+import { LoadStatus } from "../models";
+
+const DEFAULT_STATE: IMeState = {
+  status: LoadStatus.None
+};
+
 
 export const reducer = (
-  state: IUserState = { isLoaded: false },
+  state: IMeState = DEFAULT_STATE,
   action: MeActionTypes
-): IUserState => {
+): IMeState => {
   switch (action.type) {
     case AppActionKeys.LoadMe:
-      return { isLoaded: true, user: action.payload };
+      return { status: LoadStatus.Loaded, user: action.payload };
   }
-  return state as IUserState;
+  return state as IMeState;
 };
 
 export default reducer;

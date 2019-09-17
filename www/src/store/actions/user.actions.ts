@@ -1,22 +1,20 @@
 import { Dispatch } from "react";
-import { AppActionKeys } from "./action.keys";
+import { UserActionKeys } from "./action.keys";
 import UserDataApi from "../../api/user.api";
-import { IUser } from "../models";
+import { IAppState } from "../models";
+import { ThunkAction } from "redux-thunk";
+import { AnyAction } from "redux";
 
-export interface ILoadUsersSuccess {
-  readonly type: AppActionKeys.LoadUsersSuccess;
-  readonly users: IUser[];
-}
-export interface ILoadUsersFail {
-  readonly type: AppActionKeys.LoadUsersFail;
-  readonly error: Error;
-}
-export type UserActionTypes = ILoadUsersSuccess | ILoadUsersFail;
 
-export function loadUsers() {
-  debugger;
-  return async (dispatch: Dispatch<UserActionTypes>, getState: any) => {
-    const users = await UserDataApi.fetchUsers();
-    dispatch({ type: AppActionKeys.LoadUsersSuccess, users });
+
+export function loadUsers() : ThunkAction<Promise<void>, IAppState, null, AnyAction> {  
+  return async (dispatch: Dispatch<AnyAction>, getState: any)  => {
+    try {
+      dispatch({type: UserActionKeys.LoadingUsers});
+      const users = await UserDataApi.fetchUsers();
+      dispatch({ type: UserActionKeys.LoadUsersSuccess, payload: users });    
+    } catch(error) {
+      dispatch({ type: UserActionKeys.LoadUsersFail, payload: error });    
+    }
   };
 }

@@ -2,12 +2,12 @@ import { combineReducers } from "redux";
 import me from "./me-reducer";
 import sideBarState from "./side-bar-reducer";
 import { IAppState } from "../models";
-import users from "./user-reducer";
+import usersState from "./users-reducer";
 
 const rootReducer = combineReducers<IAppState>({
-  me,
+  meState: me,
   sideBarState,
-  users
+  usersState
 });
 
 export default rootReducer;

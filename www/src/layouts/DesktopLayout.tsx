@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../common/Header";
 import "./DesktopLayout.css";
 import { connect } from "react-redux";
 import { IAppState } from "../store/models";
 import { Dispatch } from "redux";
 import { SideBarActionTypes, toggleSideBar } from "../store/actions";
-import UserDataApi from "../api/user.api";
 import UserDashBoard from "../components/UserDashboard";
 
 interface ILocalProps {
