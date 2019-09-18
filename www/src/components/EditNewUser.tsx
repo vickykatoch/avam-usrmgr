@@ -5,23 +5,73 @@ const style = {
   width: 500,
   background: "white"
 };
-// interface LocalProps {
-//   user: boolean | IUser;
-//   onCancel: () => void;
-//   onSave: (user: IUser) => void;
-// }
+export interface EditNewUserProps {
+  user: boolean | IUser;
+  onCancel: () => void;
+  onSave: (user: IUser, isNew?: boolean) => void;
+}
+const emptyUser: IUser = {
+  sid: "",
+  firstName: "",
+  lastName: "",
+  active: false,
+  lastUpdatedBy: "d424242",
+  roles: [],
+  aclOverrides: []
+};
 
-const EditNewUser = () => {
+const userForm = (user: IUser) => (
+  <div className="d-flex flex-fill flex-column">
+    <div className="d-flex flex-column mb-1">
+      <span>SID</span>
+      <input type="text" value={user.sid} />
+    </div>
+    <div className="d-flex flex-column mb-1">
+      <span>First Name</span>
+      <input type="text" value={user.firstName} />
+    </div>
+    <div className="d-flex flex-column mb-1">
+      <span>Last Name</span>
+      <input type="text" value={user.lastName} />
+    </div>
+    <div className="d-flex mb-1">
+      <input type="checkbox" id="isActive" checked={user.active} />
+      <label htmlFor="isActive">Is Active</label>
+    </div>
+    <div className="d-flex flex-column mb-1">
+      <span>Roles</span>
+      <input type="text" />
+    </div>
+    <div className="d-flex flex-column mb-1">
+      <span>Resources</span>
+      <input type="text" />
+    </div>
+  </div>
+);
+
+const EditNewUser = (options: EditNewUserProps) => {
+  const { user, onCancel, onSave } = options;
+  const userInfo: IUser = user === true ? emptyUser : ({ ...user } as IUser);
   return (
     <div className="card" style={style}>
-      <div className="card-header">New User</div>
-      <div className="card-body"></div>
+      <div className="card-header">
+        <strong>New User</strong>
+      </div>
+      <div className="card-body">{userForm(userInfo)}</div>
       <div className="card-footer text-right">
         <div className="btn-group">
-          <button type="button" className="btn btn-outline-primary btn-sm">
+          <button
+            type="button"
+            className="btn btn-outline-primary btn-sm"
+            onClick={() => onSave(userInfo)}
+          >
             Save
           </button>
-          <button type="button" className="btn btn-outline-danger btn-sm">
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-sm"
+            onClick={onCancel}
+          >
             Cancel
           </button>
         </div>
