@@ -3,7 +3,7 @@ import { IUserOverride } from "./user-overrides";
 import { LoadStatus } from "./load-status";
 
 export interface IUser {
-  sid: string;
+  id: string;
   firstName: string;
   lastName: string;
   me?: boolean;

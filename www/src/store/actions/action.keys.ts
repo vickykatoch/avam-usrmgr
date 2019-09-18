@@ -6,7 +6,9 @@ export enum AppActionKeys {
 }
 
 export enum UserActionKeys {
-  LoadingUsers = 'LoadingUsers',
+  LoadingUsers = "LoadingUsers",
   LoadUsersSuccess = "LoadUsersSuccess",
-  LoadUsersFail = "LoadUsersFail"
+  LoadUsersFail = "LoadUsersFail",
+  UpdateUserSuccess = "UpdateUserSuccess",
+  UpdateUserFail = "UpdateUserFail"
 }

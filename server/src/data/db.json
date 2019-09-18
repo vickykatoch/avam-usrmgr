@@ -1,86 +1,107 @@
 {
     "users": [{
-        "sid": "D573333",
-        "firstName": "Balwinder",
-        "lastName": "Katoch",
-        "active": true,
-        "lastUpdate": 1555466368529,
-        "lastUpdatedBy": "U567789"
-    }, {
-        "sid": "U567789",
-        "firstName": "Aryan",
-        "lastName": "Katoch",
-        "active": true,
-        "lastUpdate": 1552787988234,
-        "lastUpdatedBy": "U567789"
-    }],
+            "id": "D573333",
+            "firstName": "Balwinder",
+            "lastName": "Katoch",
+            "active": true,
+            "lastUpdate": 1568845317866,
+            "lastUpdatedBy": "U567789"
+        },
+        {
+            "id": "U567789",
+            "firstName": "Aryan",
+            "lastName": "Katoch",
+            "active": true,
+            "lastUpdate": 2,
+            "lastUpdatedBy": "U567789"
+        }
+    ],
     "resources": [{
-        "id": 1,
-        "name": "SPDR Parameters",
-        "restricted": true,
-        "active": true
-    }, {
-        "id": 2,
-        "name": "Strategy Parameters",
-        "restricted": false,
-        "active": true
-    }, {
-        "id": 3,
-        "name": "Market Watch",
-        "restricted": false,
-        "active": true
-    }, {
-        "id": 4,
-        "name": "Market Ladder",
-        "restricted": true,
-        "active": true
-    }, {
-        "id": 5,
-        "name": "Order Blotter",
-        "restricted": true,
-        "active": true
-    }],
+            "id": 1,
+            "name": "SPDR Parameters",
+            "restricted": true,
+            "active": true
+        },
+        {
+            "id": 2,
+            "name": "Strategy Parameters",
+            "restricted": false,
+            "active": true
+        },
+        {
+            "id": 3,
+            "name": "Market Watch",
+            "restricted": false,
+            "active": true
+        },
+        {
+            "id": 4,
+            "name": "Market Ladder",
+            "restricted": true,
+            "active": true
+        },
+        {
+            "id": 5,
+            "name": "Order Blotter",
+            "restricted": true,
+            "active": true
+        }
+    ],
     "roles": [{
-        "id": 1,
-        "name": "Administrator",
-        "supreme": true,
-        "active": true,
-        "acl": 32
-    }, {
-        "id": 2,
-        "name": "Dev Admin",
-        "supreme": false,
-        "active": true,
-        "acl": 16
-    }, {
-        "id": 3,
-        "name": "Trader",
-        "supreme": false,
-        "active": true,
-        "acl": 8
-    }],
+            "id": 1,
+            "name": "Administrator",
+            "supreme": true,
+            "active": true,
+            "acl": 32
+        },
+        {
+            "id": 2,
+            "name": "Dev Admin",
+            "supreme": false,
+            "active": true,
+            "acl": 16
+        },
+        {
+            "id": 3,
+            "name": "Trader",
+            "supreme": false,
+            "active": true,
+            "acl": 8
+        }
+    ],
     "roleResources": [{
-        "role": 1,
-        "resources": [
-            1, 2, 3, 4, 5
-        ]
-    }, {
-        "role": 1,
-        "resources": [
-            1, 2, 3
-        ]
-    }],
+            "role": 1,
+            "resources": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        },
+        {
+            "role": 1,
+            "resources": [
+                1,
+                2,
+                3
+            ]
+        }
+    ],
     "roleUsers": [{
-        "role": 1,
-        "users": [
-            "D573333"
-        ]
-    }, {
-        "role": 2,
-        "users": [
-            "D573333", "U567789"
-        ]
-    }],
+            "role": 1,
+            "users": [
+                "D573333"
+            ]
+        },
+        {
+            "role": 2,
+            "users": [
+                "D573333",
+                "U567789"
+            ]
+        }
+    ],
     "userOverrides": [{
         "user": "D573333",
         "resource": 1,

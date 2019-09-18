@@ -11,7 +11,7 @@ export interface EditNewUserProps {
   onSave: (user: IUser, isNew?: boolean) => void;
 }
 const emptyUser: IUser = {
-  sid: "",
+  id: "",
   firstName: "",
   lastName: "",
   active: false,
@@ -24,7 +24,7 @@ const userForm = (user: IUser) => (
   <div className="d-flex flex-fill flex-column">
     <div className="d-flex flex-column mb-1">
       <span>SID</span>
-      <input type="text" value={user.sid} />
+      <input type="text" value={user.id} />
     </div>
     <div className="d-flex flex-column mb-1">
       <span>First Name</span>
@@ -51,11 +51,12 @@ const userForm = (user: IUser) => (
 
 const EditNewUser = (options: EditNewUserProps) => {
   const { user, onCancel, onSave } = options;
+  const isNewUser = user === true;
   const userInfo: IUser = user === true ? emptyUser : ({ ...user } as IUser);
   return (
     <div className="card" style={style}>
       <div className="card-header">
-        <strong>New User</strong>
+        <strong>{isNewUser ? "New User" : "Edit User"}</strong>
       </div>
       <div className="card-body">{userForm(userInfo)}</div>
       <div className="card-footer text-right">

@@ -24,8 +24,8 @@ const UserList = (props: LocalProps) => {
       <tbody>
         {users.map(user => {
           return (
-            <tr key={user.sid}>
-              <td>{user.sid}</td>
+            <tr key={user.id}>
+              <td>{user.id}</td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
               <td className="text-center">{user.active ? "true" : false}</td>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { loadUsers } from "../store/actions";
+import { loadUsers, saveUser } from "../store/actions";
 import { IAppState, IUsersState, LoadStatus, IUser } from "../store/models";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
@@ -10,6 +10,7 @@ import { Route, withRouter } from "react-router-dom";
 interface LocalState {
   usersState: IUsersState;
   load: () => void;
+  save: (user: IUser) => void;
 }
 
 //#region Render Fragments
@@ -60,6 +61,7 @@ const UserDashBoard = (props: LocalState) => {
   };
   const onSaveUser = (user: IUser, isNew?: boolean) => {
     console.log("Save user called", user);
+    props.save(user);
     setNewUser(false);
     setEditUser(null);
   };
@@ -97,6 +99,9 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
   const actions = {
     load: () => {
       dispatch(loadUsers());
+    },
+    save: (user: IUser) => {
+      dispatch(saveUser(user));
     }
   };
   return actions;
