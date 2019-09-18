@@ -8,7 +8,7 @@ const style = {
 export interface EditNewUserProps {
   user: boolean | IUser;
   onCancel: () => void;
-  onSave: (user: IUser, isNew?: boolean) => void;
+  onSave: (user: IUser) => void;
 }
 const emptyUser: IUser = {
   id: "",

@@ -10,17 +10,14 @@ import { Route, withRouter } from "react-router-dom";
 interface LocalState {
   usersState: IUsersState;
   load: () => void;
-  save: (user: IUser) => void;
+  save: (user: IUser, isNew: boolean) => void;
 }
 
 //#region Render Fragments
 const Header: React.StatelessComponent<any> = ({ onNew }) => (
   <div className="d-flex no-shrink mb-1">
     <h4 className="flex-fill">Users Management</h4>
-    <button
-      className="btn btn-sm btn-outline-primary no-shrink"
-      onClick={onNew}
-    >
+    <button className="btn btn-sm btn-outline-primary no-shrink" onClick={onNew}>
       <i className="fa fa-plus mr-2" aria-hidden="true"></i>
       New
     </button>
@@ -35,9 +32,7 @@ const Status: React.StatelessComponent<any> = ({ usersState }) => {
       </span>
     );
   } else if (usersState.loadStatus === LoadStatus.Error) {
-    return (
-      <span className="alert alert-danger">{usersState.errorDescription}</span>
-    );
+    return <span className="alert alert-danger">{usersState.errorDescription}</span>;
   }
   return null;
 };
@@ -59,9 +54,9 @@ const UserDashBoard = (props: LocalState) => {
     setNewUser(false);
     setEditUser(null);
   };
-  const onSaveUser = (user: IUser, isNew?: boolean) => {
+  const onSaveUser = (user: IUser) => {
     console.log("Save user called", user);
-    props.save(user);
+    props.save(user, newUser);
     setNewUser(false);
     setEditUser(null);
   };
@@ -70,11 +65,7 @@ const UserDashBoard = (props: LocalState) => {
   if (newUser || editUser) {
     editOrNewUserFrom = (
       <div className="overlay p-4">
-        <EditNewUser
-          onSave={onSaveUser}
-          onCancel={onCancel}
-          user={newUser || editUser}
-        />
+        <EditNewUser onSave={onSaveUser} onCancel={onCancel} user={newUser || editUser} />
       </div>
     );
   }
@@ -100,8 +91,8 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
     load: () => {
       dispatch(loadUsers());
     },
-    save: (user: IUser) => {
-      dispatch(saveUser(user));
+    save: (user: IUser, isNew: boolean) => {
+      dispatch(saveUser(user, isNew));
     }
   };
   return actions;

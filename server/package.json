@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch ./src/data/db.json --port 8600 --middlewares ./src/index.js"
+    "start": "node ./src/index.js"
   },
   "dependencies": {
     "json-server": "^0.15.1"

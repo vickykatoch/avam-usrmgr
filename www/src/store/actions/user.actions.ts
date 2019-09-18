@@ -5,12 +5,7 @@ import { IAppState, IUser } from "../models";
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
 
-export function loadUsers(): ThunkAction<
-  Promise<void>,
-  IAppState,
-  null,
-  AnyAction
-> {
+export function loadUsers(): ThunkAction<Promise<void>, IAppState, null, AnyAction> {
   return async (dispatch: Dispatch<AnyAction>, getState: any) => {
     try {
       dispatch({ type: UserActionKeys.LoadingUsers });
@@ -21,15 +16,11 @@ export function loadUsers(): ThunkAction<
     }
   };
 }
-
-export async function saveUser(
-  user: IUser,
-  isNew: boolean
-): ThunkAction<Promise<void>, IAppState, null, AnyAction> {
+export function saveUser(user: IUser, isNew: boolean): ThunkAction<Promise<void>, IAppState, null, AnyAction> {
   return async (dispatch: Dispatch<AnyAction>, getState: any) => {
-    try {
-      const user = await UserDataApi.addUpdateUser(user, isNew);
-      dispatch({ type: UserActionKeys.UpdateUserSuccess, payload: user });
+    try {            
+      const response = await UserDataApi.upsertUser(user, isNew);
+      dispatch({ type: UserActionKeys.UpdateUserSuccess, payload: response });
     } catch (error) {
       dispatch({ type: UserActionKeys.UpdateUserFail, payload: error });
     }
