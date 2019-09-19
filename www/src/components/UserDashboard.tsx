@@ -5,10 +5,13 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import UserList from "./UserList";
 import EditNewUser from "./EditNewUser";
-import { Route, withRouter } from "react-router-dom";
+import { ICombinedRouterAppState } from "../store/system-reducer";
+import { RouterState } from "connected-react-router";
+
 
 interface LocalState {
   usersState: IUsersState;
+  router: RouterState;
   load: () => void;
   save: (user: IUser, isNew: boolean) => void;
 }
@@ -81,9 +84,10 @@ const UserDashBoard = (props: LocalState) => {
 };
 
 //#region REDUX WIRING
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: ICombinedRouterAppState) => {
   return {
-    usersState: state.usersState
+    usersState: state.appState.usersState,
+    router: state.router
   };
 };
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {

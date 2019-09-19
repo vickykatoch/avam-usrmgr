@@ -2,10 +2,10 @@ import React from "react";
 import Header from "../common/Header";
 import "./DesktopLayout.css";
 import { connect } from "react-redux";
-import { IAppState } from "../store/models";
 import { Dispatch } from "redux";
 import { SideBarActionTypes, toggleSideBar } from "../store/actions";
 import UserDashBoard from "../components/UserDashboard";
+import { ICombinedRouterAppState } from "../store/system-reducer";
 
 interface ILocalProps {
   isOpen: boolean;
@@ -29,9 +29,9 @@ const DesktopLayout = (props: ILocalProps) => {
   );
 };
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: ICombinedRouterAppState) => {
   return {
-    isOpen: state.sideBarState.isOpen
+    isOpen: state.appState.sideBarState.isOpen
   };
 };
 

@@ -22,6 +22,8 @@ export function saveUser(user: IUser, isNew: boolean): ThunkAction<Promise<void>
       const response = await UserDataApi.upsertUser(user, isNew);
       dispatch({ type: UserActionKeys.UpdateUserSuccess, payload: response });
     } catch (error) {
+      // debugger;
+      console.error(error);
       dispatch({ type: UserActionKeys.UpdateUserFail, payload: error });
     }
   };

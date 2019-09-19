@@ -10,9 +10,9 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 
-server.use(function (req, res, next) {
-  setTimeout(next, 2000);
-});
+// server.use(function (req, res, next) {
+//   setTimeout(next, 2000);
+// });
 server.use((req, res, next) => {
   if (req.method === "POST") {
     req.body.createdAt = Date.now();
@@ -25,15 +25,17 @@ server.post("/users", function (req, res, next) {
   // if (error) {
   //   res.status(400).send(error);
   // } else {
+    console.log(req.body);
   req.body.lastUpdate = Date.now();
   next();
   // }
 });
-server.put("/users", function (req, res, next) {
+server.put("/users/:id", function (req, res, next) {
   // const error = validateCourse(req.body);
   // if (error) {
   //   res.status(400).send(error);
   // } else {
+  console.log(req.body);
   req.body.lastUpdate = Date.now();
   next();
   // }

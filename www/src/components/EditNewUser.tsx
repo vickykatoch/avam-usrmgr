@@ -16,8 +16,8 @@ const emptyUser: IUser = {
   lastName: "",
   active: false,
   lastUpdatedBy: "d424242",
-  roles: [],
-  aclOverrides: []
+  // roles: [],
+  // aclOverrides: []
 };
 
 const userForm = (user: IUser) => (

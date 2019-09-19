@@ -1,5 +1,6 @@
 import React from "react";
 import { IUser } from "../store/models";
+import { formatDate, DateFormats } from "../utils/date-utils";
 
 interface LocalProps {
   users: IUser[];
@@ -29,7 +30,7 @@ const UserList = (props: LocalProps) => {
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
               <td className="text-center">{user.active ? "true" : false}</td>
-              <td className="text-right">{user.lastUpdate}</td>
+              <td className="text-right">{user.lastUpdate && formatDate(user.lastUpdate, DateFormats.DateTimeMillis)}</td>
               <td>{user.lastUpdatedBy}</td>
               <td>
                 <div className="btn-group">
