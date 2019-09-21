@@ -1,13 +1,18 @@
 import React, { FC } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Route } from "react-router-dom";
 
-interface LogManagerViewState {
-  routerState: RouteComponentProps;
+interface LogManagerViewState extends RouteComponentProps {
+  
 }
+
 
 const LogManagerHomeView: FC<LogManagerViewState> = (
   state: LogManagerViewState
-) => {
-  return <h1>Log Manager Home View</h1>;
+) => {  
+  const hostUrl = state.match.path;
+  return (<div>
+    <h1>Log Manager Home View</h1>
+    {/* <Route path={hostUrl} component={UserList} exact/> */}
+  </div>);
 };
 export default LogManagerHomeView;

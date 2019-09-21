@@ -19,7 +19,7 @@ const DesktopLayoutView: FC = () => {
           {menuBarVisible && <div className="overlay"></div>}
           <div className="d-flex flex-fill">
             <Switch>
-              <Route path="/" component={UserAdminHomeView} exact />
+              <Route path="/users" component={UserAdminHomeView} />
               <Route path="/logmanager" component={LogManagerHomeView} />
             </Switch>
           </div>
