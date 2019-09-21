@@ -9,6 +9,6 @@ export enum UserActionKeys {
   LoadingUsers = "LoadingUsers",
   LoadUsersSuccess = "LoadUsersSuccess",
   LoadUsersFail = "LoadUsersFail",
-  UpdateUserSuccess = "UpdateUserSuccess",
-  UpdateUserFail = "UpdateUserFail"
+  UpsertUserSuccess = "UpsertUserSuccess",
+  UpsertUserFail = "UpsertUserFail"
 }

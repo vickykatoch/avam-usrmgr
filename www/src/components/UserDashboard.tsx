@@ -7,7 +7,7 @@ import UserList from "./UserList";
 import EditNewUser from "./EditNewUser";
 import { ICombinedRouterAppState } from "../store/system-reducer";
 import { RouterState } from "connected-react-router";
-
+import { Link } from "react-router-dom";
 
 interface LocalState {
   usersState: IUsersState;
@@ -20,7 +20,10 @@ interface LocalState {
 const Header: React.StatelessComponent<any> = ({ onNew }) => (
   <div className="d-flex no-shrink mb-1">
     <h4 className="flex-fill">Users Management</h4>
-    <button className="btn btn-sm btn-outline-primary no-shrink" onClick={onNew}>
+    <button
+      className="btn btn-sm btn-outline-primary no-shrink"
+      onClick={onNew}
+    >
       <i className="fa fa-plus mr-2" aria-hidden="true"></i>
       New
     </button>
@@ -35,7 +38,9 @@ const Status: React.StatelessComponent<any> = ({ usersState }) => {
       </span>
     );
   } else if (usersState.loadStatus === LoadStatus.Error) {
-    return <span className="alert alert-danger">{usersState.errorDescription}</span>;
+    return (
+      <span className="alert alert-danger">{usersState.errorDescription}</span>
+    );
   }
   return null;
 };
@@ -68,13 +73,18 @@ const UserDashBoard = (props: LocalState) => {
   if (newUser || editUser) {
     editOrNewUserFrom = (
       <div className="overlay p-4">
-        <EditNewUser onSave={onSaveUser} onCancel={onCancel} user={newUser || editUser} />
+        <EditNewUser
+          onSave={onSaveUser}
+          onCancel={onCancel}
+          user={newUser || editUser}
+        />
       </div>
     );
   }
 
   return (
     <div className="d-flex flex-fill flex-column">
+      <Link to="/usermgr/0">Manage User</Link>
       <Header {...{ onNew: () => setNewUser(true) }} />
       <Status {...props} />
       <UserList users={usersState.users} onEdit={onUserEdit} />

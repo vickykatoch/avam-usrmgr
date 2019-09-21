@@ -9,7 +9,7 @@ class UserDataApi {
 
   async upsertUser(user: any, isNew: boolean): Promise<any> {
     const url = isNew ? `${BASE_URL}/users` : `${BASE_URL}/users/${user.id}`;
-    debugger;
+
     const method = isNew ? "post" : "put";
     const response = await fetch(url, {
       method,
