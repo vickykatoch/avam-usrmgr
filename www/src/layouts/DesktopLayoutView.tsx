@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 import "./DesktopLayout.css";
-import Header from "../common/Header";
+import Header from "../common/components/AppHeader";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ActionSideBar from "../common/components/ActionSideBar";
-import UserAdminHomeView from "../new/user-administration/UserAdminHomeView";
-import LogManagerHomeView from "../new/log-manager/LogManagerHomeView";
+import LogManagerHomeView from "../modules/log-manager/LogManagerHomeView";
+import UserAdminView from "../modules/user-administration/UserAdminView";
 
 const DesktopLayoutView: FC = () => {
   const [menuBarVisible, setMenuBarVisibleState] = useState(false);
@@ -19,7 +19,7 @@ const DesktopLayoutView: FC = () => {
           {menuBarVisible && <div className="overlay"></div>}
           <div className="d-flex flex-fill">
             <Switch>
-              <Route path="/users" component={UserAdminHomeView} />
+              <Route path="/users" component={UserAdminView} />
               <Route path="/logmanager" component={LogManagerHomeView} />
             </Switch>
           </div>

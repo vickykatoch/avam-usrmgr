@@ -8,7 +8,7 @@ export interface ISideBarProps {
 const ActionSideBar: FC<ISideBarProps> = ({ onMenuClick }) => {
   return (
     <div className="d-flex flex-fill flex-column">
-      <NavLink to="/" className="no-shrink p-1" onClick={onMenuClick}>
+      <NavLink to="/users" className="no-shrink p-1" onClick={onMenuClick}>
         Home
       </NavLink>
       <NavLink to="/logmanager" className="no-shrink p-1" onClick={onMenuClick}>

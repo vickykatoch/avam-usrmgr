@@ -1,12 +1,12 @@
 import React from "react";
-import "./Header.css";
+import "./AppHeader.css";
 
-interface ILocalProps {
+interface IViewProps {
   toggleMenu: () => void;
   isMenuOpen: boolean;
 }
 
-const Header = (props: ILocalProps) => {
+const AppHeader = (props: IViewProps) => {
   const jsxElement: JSX.Element = props.isMenuOpen ? (
     <i className="fa fa-times fa-2x hover-item" onClick={props.toggleMenu}></i>
   ) : (
@@ -23,4 +23,4 @@ const Header = (props: ILocalProps) => {
   );
 };
 
-export default Header;
+export default AppHeader;
