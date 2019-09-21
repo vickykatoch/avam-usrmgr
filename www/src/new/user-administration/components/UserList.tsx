@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { IUser } from "../../../store/models";
 
-interface LocalProps {
+export interface LocalProps {
   users: IUser[];
 }
 

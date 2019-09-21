@@ -9,17 +9,16 @@ interface IUserAdminState {
 }
 
 const UserAdminHomeView: FC<IUserAdminState> = (viewState: IUserAdminState) => {
-  const props ={
+  const props = {
     users: []
   };
   return (
     <div className="d-flex flex-fill flex-column">
       <h1>User Admin Home</h1>
-
-      <Route
+      {/* <Route
         path="/" render={(props) => {
           <UserList ...{props}></UserList>;
-        }}/>
+        }}/> */}
     </div>
   );
 };
