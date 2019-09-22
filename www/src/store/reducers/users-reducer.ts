@@ -1,16 +1,24 @@
 import { UserActionKeys } from "../actions";
-import { LoadStatus, IUsersState } from "../models";
+import { LoadStatus, IUsersState, IUserState, SaveStatus } from "../models";
 import { AnyAction } from "redux";
+
+const DEFAULT_STATE1: IUserState = {
+  loadStatus: LoadStatus.None,
+  saveStatus: SaveStatus.None,
+  users: {}
+};
+
+const reducer1 = (state: IUserState = DEFAULT_STATE1, action: AnyAction) : IUserState=> {
+  
+  return state;
+};
 
 const DEFAULT_STATE: IUsersState = {
   loadStatus: LoadStatus.None,
   users: []
 };
 
-export const reducer = (
-  state: IUsersState = DEFAULT_STATE,
-  action: AnyAction
-): IUsersState => {
+export const reducer = (state: IUsersState = DEFAULT_STATE, action: AnyAction): IUsersState => {
   switch (action.type) {
     case UserActionKeys.LoadingUsers:
       return { loadStatus: LoadStatus.Loading, users: [] };

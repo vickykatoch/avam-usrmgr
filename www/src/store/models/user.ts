@@ -1,6 +1,6 @@
 // import { IRole } from "./role";
 // import { IUserOverride } from "./user-overrides";
-import { LoadStatus } from "./load-status";
+import { LoadStatus, SaveStatus } from "./load-status";
 
 export interface IUser {
   id: string;
@@ -23,4 +23,12 @@ export interface IUsersState {
   loadStatus: LoadStatus;
   users: IUser[];
   errorDescription?: string;
+}
+
+export interface IUserState {
+  loadStatus : LoadStatus;
+  saveStatus: SaveStatus;
+  loadError?: string;
+  saveError?: string;
+  users : Record<string, IUser>;
 }

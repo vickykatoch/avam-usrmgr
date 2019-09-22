@@ -5,6 +5,18 @@ import { IAppState, IUser } from "../models";
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
 
+export enum UserActionTypes {
+  LOADING_USERS = 'LOADING_USERS',
+  LOADING_USERS_SUCCESS = 'LOADING_USERS_SUCCESS',
+  LOADING_USERS_FAILED = 'LOADING_USERS_FAILED',
+  SAVING_USERS = 'SAVING_USERS',
+  SAVING_USERS_SUCCESS = 'SAVING_USERS_SUCCESS',
+  SAVING_USERS_FAILED = 'SAVING_USERS_FAILED'
+}
+
+
+
+
 export function loadUsers(): ThunkAction<
   Promise<void>,
   IAppState,
