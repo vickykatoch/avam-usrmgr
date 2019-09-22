@@ -7,7 +7,7 @@ import usersState from "./users-reducer";
 const rootReducer = combineReducers<IAppState>({
   meState: me,
   sideBarState,
-  usersState
+  userState: usersState
 });
 
 export default rootReducer;

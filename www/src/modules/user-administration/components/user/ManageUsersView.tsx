@@ -1,17 +1,17 @@
 //#region IMPORTS
 import React, { FC, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { IAppState, IUsersState, LoadStatus } from "../../../../store/models";
+import { IAppState, IUserState, LoadStatus } from "../../../../store/models";
 import { loadUsers } from "../../../../store/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { connect } from "react-redux";
 import UserList from "./UserList";
+import { mapUsersToArray } from "../../../../store/selectors/user-selectors";
 //#endregion
-
 
 //#region VIEW TYPES
 interface IViewProps extends RouteComponentProps {
-  usersState: IUsersState;
+  usersState: IUserState;
   isLoading?: boolean;
 }
 interface IViewActions {
@@ -28,9 +28,9 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
   const loading = usersState.loadStatus === LoadStatus.None || usersState.loadStatus === LoadStatus.Loading;
   useEffect(() => {
     usersState.loadStatus === LoadStatus.None && loadUsers();
-    console.log('use effects called');
-  },[]);
-
+    console.log("use effects called");
+  }, []);
+  const users = mapUsersToArray(usersState.users);
   return (
     <div className="d-flex flex-column flex-fill pt-1">
       {loading && (
@@ -38,17 +38,14 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
           <i className="fa fa-spinner fa-spin"></i> Loading users. Please wait...
         </h5>
       )}
-      {usersState.users.length ? (
-        <UserList
-          users={usersState.users}
-          url={`${match.path}`}
-          onDelete={(id: string) => {
-            console.log("User deleted");
-          }}
-        />
-      ) : (
-        !usersState.users.length && !loading && <div>No user exist</div>
-      )}
+      <UserList
+        users={users}
+        url={`${match.path}`}
+        onDelete={(id: string) => {
+          console.log("User deleted");
+        }}
+      />
+      {/* {!usersState.users.length && !loading && <div>No user exist</div>} */}
     </div>
   );
 };
@@ -57,7 +54,7 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
 //#region REDUX WIRING
 const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
   return {
-    usersState: state.usersState,
+    usersState: state.userState,
     ...ownProps
   };
 };

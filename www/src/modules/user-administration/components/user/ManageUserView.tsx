@@ -1,28 +1,29 @@
 //#region IMPORTS
 import React, { FC, useState, useEffect } from "react";
-import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
-import { IUser, IAppState, IUsersState, LoadStatus } from "../../../../store/models";
+import { withRouter, RouteComponentProps, NavLink, Redirect } from "react-router-dom";
+import { IUser, IAppState, IUserState, LoadStatus, SaveStatus } from "../../../../store/models";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import TextInput from "../../../../common/components/TextInput";
 import UserForm from "./UserForm";
-import { saveUser, loadUsers } from "../../../../store/actions";
+import { saveUser, loadUsers, ackSave } from "../../../../store/actions";
 //#endregion
 
 //#region VIEW PROPS
 interface IViewProps extends RouteComponentProps {
   user: IUser;
-  usersState: IUsersState;
+  usersState: IUserState;
   notFound?: boolean;
   isNew?: boolean;
 }
 interface IViewActions {
   loadUsers: () => void;
+  ackSave: () => void;
   saveUser: (user: IUser, isNew?: boolean) => void;
 }
 const VIEW_WRAP = {
   width: "400px"
 };
+
 //#endregion
 
 //#region HELPERS
@@ -32,23 +33,49 @@ const emptyUser = (): IUser => ({
   lastName: "",
   active: false
 });
+const notFoundRenderer = (id: string) => {
+  return <h3>User {id} is not found</h3>;
+};
 //#endregion
 
 //#region RENDERER
-const ManageUserView: FC<IViewProps & IViewActions> = ({ user, usersState, isNew, notFound, loadUsers, saveUser, match }) => {
-  const [usr, setUser] = useState({ ...user }); 
+const ManageUserView: FC<IViewProps & IViewActions> = ({ user, usersState, isNew, notFound, loadUsers, saveUser, ackSave, match }) => {
+  const [usr, setUser] = useState(user);
   useEffect(() => {
     usersState.loadStatus === LoadStatus.None && loadUsers();
-  }, []);
+    if (usersState.loadStatus === LoadStatus.Loaded && usersState.saveStatus === SaveStatus.None && !isNew) {
+      setUser(user);
+    }
+  }, [usersState]);
+
+  if (usersState.saveStatus === SaveStatus.Saved) {
+    ackSave();
+    return <Redirect to="/users" />;
+  }
+  if (notFound) {
+    return notFoundRenderer(user.id);
+  }
+  const isSaving = usersState.saveStatus === SaveStatus.Saving;
   const handleChange = (evt: any) => {
     const { target } = evt;
     setUser({ ...usr, [target.name]: target.value });
   };
   const handleSave = () => saveUser(usr, isNew);
+
   return (
-    <div className="d-flex justify-content-center p-1">
+    <div className="d-flex justify-content-center p-1" style={{ pointerEvents: isSaving ? "none" : "auto" }}>
       <div className="d-flex flex-column" style={VIEW_WRAP}>
-        <h3 className="d-flex no-shrink mt-1">{isNew ? "New User" : "Edit User"}</h3>
+        <div className="d-flex no-shrink mt-1">
+          <h3 className="flex-fill">{isNew ? "New User" : "Edit User"}</h3>
+          {isSaving && (
+            <div className="d-flex justify-content-end no-shrink ml-3 alert-primary">
+              <span>
+                <i className="fa fa-spin fa-spinner"></i> Saving. Please wait...
+              </span>
+            </div>
+          )}
+        </div>
+        {usersState.saveStatus === SaveStatus.Error && <div className="alert-danger">{usersState.saveError}</div>}
         <div className="d-flex flex-fill flex-column mt-1">
           <UserForm user={usr} onChange={handleChange}></UserForm>
         </div>
@@ -58,7 +85,9 @@ const ManageUserView: FC<IViewProps & IViewActions> = ({ user, usersState, isNew
             <button className="btn btn-sm btn-outline-primary" onClick={handleSave}>
               Save
             </button>
-            <NavLink className="btn btn-sm btn-outline-danger" to="/users">Cancel</NavLink>
+            <NavLink className="btn btn-sm btn-outline-danger" to="/users">
+              Cancel
+            </NavLink>
           </div>
         </div>
       </div>
@@ -77,22 +106,22 @@ const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IView
     if (+id === 0) {
       resolvedProps = {
         user: newUser,
-        usersState: state.usersState,
+        usersState: state.userState,
         isNew: true,
         ...ownProps
       };
     } else {
-      const user = state.usersState.loadStatus === LoadStatus.Loaded ? state.usersState.users.find(usr => usr.id === id) : newUser;
+      const user = state.userState.loadStatus === LoadStatus.Loaded ? state.userState.users[id] : newUser;
       if (user) {
         resolvedProps = {
-          user,
-          usersState: state.usersState,
+          user: { ...user },
+          usersState: state.userState,
           ...ownProps
         };
       } else {
         resolvedProps = {
           user: newUser,
-          usersState: state.usersState,
+          usersState: state.userState,
           notFound: true,
           ...ownProps
         };
@@ -102,7 +131,7 @@ const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IView
     resolvedProps = {
       user: emptyUser(),
       notFound: true,
-      usersState: state.usersState,
+      usersState: state.userState,
       ...ownProps
     };
   }
@@ -111,6 +140,7 @@ const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IView
 const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, any, any>): IViewActions => {
   return {
     loadUsers: () => dispatch(loadUsers()),
+    ackSave: () => dispatch(ackSave()),
     saveUser: (user: IUser, isNew?: boolean) => dispatch(saveUser(user, isNew))
   };
 };

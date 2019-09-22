@@ -25,9 +25,9 @@ server.post("/users", function (req, res, next) {
   // if (error) {
   //   res.status(400).send(error);
   // } else {
-    console.log(req.body);
-      req.body.lastUpdate = Date.now();
-      next();
+  console.log(req.body);
+  req.body.lastUpdate = Date.now();
+  next();
 
 });
 server.put("/users/:id", function (req, res, next) {
@@ -35,9 +35,11 @@ server.put("/users/:id", function (req, res, next) {
   // if (error) {
   //   res.status(400).send(error);
   // } else {
+  // debugger;
   console.log(req.body);
   req.body.lastUpdate = Date.now();
   next();
+
   // }
 });
 

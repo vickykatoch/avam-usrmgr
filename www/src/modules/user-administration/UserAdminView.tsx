@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { IAppState, IUsersState, IUser } from "../../store/models";
+import { IAppState, IUserState, IUser } from "../../store/models";
 import { RouteComponentProps, withRouter, Switch, Route } from "react-router";
 import { ThunkDispatch } from "redux-thunk";
 import { loadUsers, saveUser } from "../../store/actions";
@@ -12,7 +12,7 @@ import ManageUsersView from "./components/user/ManageUsersView";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
-  usersState: IUsersState;
+  usersState: IUserState;
 }
 interface IViewActions {
   loadUsers: () => void;
@@ -22,39 +22,48 @@ interface IViewActions {
 //#endregion
 
 class UserAdminView extends Component<IViewProps & IViewActions> {
-
-    
   render() {
-    const baseUrl = this.props.match.path    
+    const baseUrl = this.props.match.path;
     const props = {
-        users: [],
-        roles: [],
-        resources: []
-      };
+      users: [],
+      roles: [],
+      resources: []
+    };
     return (
-        <div className="d-flex flex-fill flex-column">
-          <div className="d-flex no-shrink">
-            <MenuBarFragment></MenuBarFragment>
-          </div>
-          <Switch>
-            <Route path={`${baseUrl}`} component={ManageUsersView} exact/>           
-            <Route path={`${baseUrl}/roles`} render={() => (<RolesFragment roles={props.roles} />)}/>
-            <Route path={`${baseUrl}/resources`} render={() => (<ResourcesFragment resources={props.resources} />)}/>
-            <Route path={`${baseUrl}/:id`} component={ManageUserView} exact/>               
-          </Switch>
+      <div className="d-flex flex-fill flex-column">
+        <div className="d-flex no-shrink">
+          <MenuBarFragment></MenuBarFragment>
         </div>
-      );
+        <Switch>
+          <Route path={`${baseUrl}`} component={ManageUsersView} exact />
+          <Route
+            path={`${baseUrl}/roles`}
+            render={() => <RolesFragment roles={props.roles} />}
+          />
+          <Route
+            path={`${baseUrl}/resources`}
+            render={() => <ResourcesFragment resources={props.resources} />}
+          />
+          <Route path={`${baseUrl}/:id`} component={ManageUserView} exact />
+        </Switch>
+      </div>
+    );
   }
 }
 
 //#region REDUX WIRING
-const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
+const mapStateToProps = (
+  state: IAppState,
+  ownProps: RouteComponentProps
+): IViewProps => {
   return {
-    usersState: state.usersState,
+    usersState: state.userState,
     ...ownProps
   };
 };
-const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, any, any>): IViewActions => {
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<IAppState, any, any>
+): IViewActions => {
   return {
     loadUsers: () => dispatch(loadUsers()),
     saveUser: (user: IUser, isNew: boolean) => dispatch(saveUser(user, isNew))

@@ -9,7 +9,6 @@ class UserDataApi {
 
   async upsertUser(user: any, isNew?: boolean): Promise<any> {
     const url = isNew ? `${BASE_URL}/users` : `${BASE_URL}/users/${user.id}`;
-
     const method = isNew ? "post" : "put";
     const response = await fetch(url, {
       method,
@@ -20,7 +19,11 @@ class UserDataApi {
       },
       body: JSON.stringify(user)
     });
-    return await response.json();
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error(`Server error : ${response.status} => ${response.statusText}`);
+    }
   }
 }
 

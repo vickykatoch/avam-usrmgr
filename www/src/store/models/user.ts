@@ -6,7 +6,7 @@ export interface IUser {
   id: string;
   firstName: string;
   lastName: string;
-  me?: boolean;  
+  me?: boolean;
   active?: boolean;
   lastUpdate?: number;
   lastUpdatedBy?: string;
@@ -19,16 +19,11 @@ export interface IMeState {
   user?: IUser;
   errorDescription?: string;
 }
-export interface IUsersState {
-  loadStatus: LoadStatus;
-  users: IUser[];
-  errorDescription?: string;
-}
 
 export interface IUserState {
-  loadStatus : LoadStatus;
+  loadStatus: LoadStatus;
   saveStatus: SaveStatus;
   loadError?: string;
   saveError?: string;
-  users : Record<string, IUser>;
+  users: Record<string, IUser>;
 }
