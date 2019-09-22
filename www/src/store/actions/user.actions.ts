@@ -23,8 +23,8 @@ export function loadUsers(): ThunkAction<
 }
 export function saveUser(
   user: IUser,
-  isNew: boolean
-): ThunkAction<Promise<void>, IAppState, null, AnyAction> {
+  isNew?: boolean
+): ThunkAction<Promise<void>, IAppState, null, AnyAction> {  
   return async (dispatch: Dispatch<AnyAction>, getState: any) => {
     try {
       const updatedUser = await UserDataApi.upsertUser(user, isNew);

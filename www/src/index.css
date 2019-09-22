@@ -31,3 +31,16 @@ body {
   display: flex;
   justify-content: center;
 }
+.card {  
+  display: flex;
+  flex-direction: column;
+}
+.card .card-header, .card .card-footer {
+  padding: 5px 10px;
+  display: flex;
+}
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}

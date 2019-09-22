@@ -1,8 +1,8 @@
 //#region IMPORTS
 import React, { FC, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { IAppState, IUsersState, LoadStatus } from "../../../store/models";
-import { loadUsers } from "../../../store/actions";
+import { IAppState, IUsersState, LoadStatus } from "../../../../store/models";
+import { loadUsers } from "../../../../store/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { connect } from "react-redux";
 import UserList from "./UserList";

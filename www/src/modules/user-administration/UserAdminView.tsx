@@ -5,10 +5,10 @@ import { ThunkDispatch } from "redux-thunk";
 import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
 import MenuBarFragment from "./components/MenuBarFragment";
-import ResourcesFragment from "./components/ResourcesFragment";
-import RolesFragment from "./components/RolesFragment";
-import ManageUserView from "./components/ManageUserView";
-import ManageUsersView from "./components/ManageUsersView";
+import ResourcesFragment from "./components/resources/ResourcesFragment";
+import RolesFragment from "./components/roles/RolesFragment";
+import ManageUserView from "./components/user/ManageUserView";
+import ManageUsersView from "./components/user/ManageUsersView";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {

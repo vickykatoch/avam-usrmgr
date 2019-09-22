@@ -11,7 +11,7 @@ server.use(jsonServer.bodyParser);
 
 
 server.use(function (req, res, next) {
-  setTimeout(next, 5000);
+  setTimeout(next, 1000);
 });
 server.use((req, res, next) => {
   if (req.method === "POST") {

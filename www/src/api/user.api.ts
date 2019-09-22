@@ -7,7 +7,7 @@ class UserDataApi {
     return await response.json();
   }
 
-  async upsertUser(user: any, isNew: boolean): Promise<any> {
+  async upsertUser(user: any, isNew?: boolean): Promise<any> {
     const url = isNew ? `${BASE_URL}/users` : `${BASE_URL}/users/${user.id}`;
 
     const method = isNew ? "post" : "put";

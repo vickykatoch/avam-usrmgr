@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IResource } from "../../../store/models";
+import { IResource } from "../../../../store/models";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
 interface LocalProps  extends RouteComponentProps {

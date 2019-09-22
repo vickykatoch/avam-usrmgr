@@ -2,28 +2,27 @@
   "users": [
     {
       "id": "D573333",
-      "firstName": "Balwinder",
+      "firstName": "Balwinder C",
       "lastName": "Katoch",
       "active": true,
-      "lastUpdate": 1568889457472,
+      "lastUpdate": 1569166796390,
       "lastUpdatedBy": "U567789"
     },
     {
       "id": "U567789",
-      "firstName": "Balwinder",
+      "firstName": "MAMTA c",
       "lastName": "Katoch",
       "active": true,
-      "lastUpdate": 1568889473321,
+      "lastUpdate": 1569166963928,
       "lastUpdatedBy": "U567789"
     },
     {
-      "id": "123456",
-      "firstName": "Balwinder",
-      "lastName": "Katoch",
-      "active": true,
-      "lastUpdate": 1568889468016,
-      "lastUpdatedBy": "U567789",
-      "createdAt": 1568861560978
+      "id": "XYZEF",
+      "firstName": "ARYAN",
+      "lastName": "KATOCH",
+      "active": false,
+      "createdAt": 1569166783264,
+      "lastUpdate": 1569166783267
     }
   ],
   "resources": [
