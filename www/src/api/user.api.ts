@@ -19,6 +19,19 @@ class UserDataApi {
       throw new Error(err.message);
     }
   }
+  async fetchResources(): Promise<any[]> {
+    try {
+      const url = `${BASE_URL}/resources`;
+      const response = await fetch(url);
+      if (response.ok) {
+        return await response.json();
+      } else {
+        throw new Error(`Server error : ${response.status} => ${response.statusText}`);
+      }
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
   async upsertUser(user: any, isNew?: boolean): Promise<any> {
     const url = isNew ? `${BASE_URL}/users` : `${BASE_URL}/users/${user.id}`;
     const method = isNew ? "post" : "put";

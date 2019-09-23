@@ -4,12 +4,14 @@ import sideBarState from "./side-bar-reducer";
 import { IAppState } from "../models";
 import usersState from "./users-reducer";
 import rolesState from "./roles-reducer";
+import resourcesState from "./resources-reducer";
 
 const rootReducer = combineReducers<IAppState>({
   meState: me,
   sideBarState,
   userState: usersState,
-  rolesState
+  rolesState,
+  resourcesState
 });
 
 export default rootReducer;
