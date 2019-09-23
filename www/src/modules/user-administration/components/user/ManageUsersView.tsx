@@ -6,7 +6,7 @@ import { loadUsers } from "../../../../store/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { connect } from "react-redux";
 import UserList from "./UserList";
-import { mapUsersToArray } from "../../../../store/selectors/user-selectors";
+import { mapToArray } from "../../../../store/selectors/user-selectors";
 //#endregion
 
 //#region VIEW TYPES
@@ -30,7 +30,7 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
     usersState.loadStatus === LoadStatus.None && loadUsers();
     console.log("use effects called");
   }, []);
-  const users = mapUsersToArray(usersState.users);
+  const users = mapToArray(usersState.users);
   return (
     <div className="d-flex flex-column flex-fill pt-1">
       {loading && (

@@ -1,5 +1,5 @@
 import { IUser } from "../models";
 
-export function mapUsersToArray(users: Record<string, IUser>): IUser[] {
+export function mapToArray<T>(users: Record<string, T>): T[] {
   return Object.values(users);
 }

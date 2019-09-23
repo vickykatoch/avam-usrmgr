@@ -6,9 +6,10 @@ import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
 import MenuBarFragment from "./components/MenuBarFragment";
 import ResourcesFragment from "./components/resources/ResourcesFragment";
-import RolesFragment from "./components/roles/RolesFragment";
 import ManageUserView from "./components/user/ManageUserView";
 import ManageUsersView from "./components/user/ManageUsersView";
+import ManageRolesView from "./components/roles/ManageRolesView";
+import ManageRoleView from "./components/roles/ManageRoleView";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
@@ -36,15 +37,10 @@ class UserAdminView extends Component<IViewProps & IViewActions> {
         </div>
         <Switch>
           <Route path={`${baseUrl}`} component={ManageUsersView} exact />
-          <Route
-            path={`${baseUrl}/roles`}
-            render={() => <RolesFragment roles={props.roles} />}
-          />
-          <Route
-            path={`${baseUrl}/resources`}
-            render={() => <ResourcesFragment resources={props.resources} />}
-          />
-          <Route path={`${baseUrl}/:id`} component={ManageUserView} exact />
+          <Route path={`${baseUrl}/roles/:id`} component={ManageRoleView} />
+          <Route path={`${baseUrl}/roles`} component={ManageRolesView} />
+          <Route path={`${baseUrl}/resources`} render={() => <ResourcesFragment resources={props.resources} />} />
+          <Route path={`${baseUrl}/:id`} component={ManageUserView} />
         </Switch>
       </div>
     );
@@ -52,18 +48,13 @@ class UserAdminView extends Component<IViewProps & IViewActions> {
 }
 
 //#region REDUX WIRING
-const mapStateToProps = (
-  state: IAppState,
-  ownProps: RouteComponentProps
-): IViewProps => {
+const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
   return {
     usersState: state.userState,
     ...ownProps
   };
 };
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<IAppState, any, any>
-): IViewActions => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, any, any>): IViewActions => {
   return {
     loadUsers: () => dispatch(loadUsers()),
     saveUser: (user: IUser, isNew: boolean) => dispatch(saveUser(user, isNew))

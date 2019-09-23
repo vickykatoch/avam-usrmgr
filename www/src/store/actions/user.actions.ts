@@ -1,9 +1,9 @@
-import { Dispatch } from "react";
-import { UserActionKeys } from "./action.keys";
+//#region IMPORTS
 import UserDataApi from "../../api/user.api";
 import { IAppState, IUser } from "../models";
 import { ThunkAction } from "redux-thunk";
-import { AnyAction } from "redux";
+import { AnyAction, Dispatch } from "redux";
+//#endregion
 
 export enum UserActionType {
   LOADING_USERS = "LOADING_USERS",
