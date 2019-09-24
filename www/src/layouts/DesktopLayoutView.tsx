@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
 import "./DesktopLayout.css";
+import "font-awesome/css/font-awesome.min.css";
+import "bootstrap/dist/css/bootstrap.css";
 import Header from "../common/components/AppHeader";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ActionSideBar from "../common/components/ActionSideBar";
+import ActionSideBars from "../common/components/ActionSideBars";
 import LogManagerHomeView from "../modules/log-manager/LogManagerHomeView";
-import UserAdminView from "../modules/user-administration/UserAdminView";
+import UserAdminView from "../modules/user-administration/UserAdminView1";
 
 const DesktopLayoutView: FC = () => {
   const [menuBarVisible, setMenuBarVisibleState] = useState(false);
@@ -25,7 +27,7 @@ const DesktopLayoutView: FC = () => {
           </div>
           {menuBarVisible && (
             <div className="menu-bar">
-              <ActionSideBar onMenuClick={toggleMenuBar} />
+              <ActionSideBars onMenuClick={toggleMenuBar} />
             </div>
           )}
         </div>

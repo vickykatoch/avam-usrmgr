@@ -5,7 +5,7 @@ export interface ISideBarProps {
   onMenuClick: () => void;
 }
 
-const ActionSideBar: FC<ISideBarProps> = ({ onMenuClick }) => {
+const ActionSideBars: FC<ISideBarProps> = ({ onMenuClick }) => {
   return (
     <div className="d-flex flex-fill flex-column">
       <NavLink to="/users" className="no-shrink p-1" onClick={onMenuClick}>
@@ -18,4 +18,4 @@ const ActionSideBar: FC<ISideBarProps> = ({ onMenuClick }) => {
   );
 };
 
-export default ActionSideBar;
+export default ActionSideBars;

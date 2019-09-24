@@ -1,15 +1,10 @@
-import React, { Component } from "react";
-import { IAppState, IUserState, IUser } from "../../store/models";
-import { RouteComponentProps, withRouter, Switch, Route } from "react-router";
+import React, { FC, useState } from "react";
+import { IUserState, IUser, IAppState } from "../../store/models";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
 import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
-import MenuBarFragment from "./components/MenuBarFragment";
-import ResourcesFragment from "./components/resources/ResourcesFragment";
-import ManageUserView from "./components/user/ManageUserView";
-import ManageUsersView from "./components/user/ManageUsersView";
-import ManageRolesView from "./components/roles/ManageRolesView";
-import ManageRoleView from "./components/roles/ManageRoleView";
+import { Tab, Tabs } from "@material-ui/core";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
@@ -22,30 +17,19 @@ interface IViewActions {
 
 //#endregion
 
-class UserAdminView extends Component<IViewProps & IViewActions> {
-  render() {
-    const baseUrl = this.props.match.path;
-    const props = {
-      users: [],
-      roles: [],
-      resources: []
-    };
-    return (
-      <div className="d-flex flex-fill flex-column">
-        <div className="d-flex no-shrink">
-          <MenuBarFragment></MenuBarFragment>
-        </div>
-        <Switch>
-          <Route path={`${baseUrl}`} component={ManageUsersView} exact />
-          <Route path={`${baseUrl}/roles/:id`} component={ManageRoleView} />
-          <Route path={`${baseUrl}/roles`} component={ManageRolesView} />
-          <Route path={`${baseUrl}/resources`} render={() => <ResourcesFragment resources={props.resources} />} />
-          <Route path={`${baseUrl}/:id`} component={ManageUserView} />
-        </Switch>
-      </div>
-    );
-  }
-}
+const UserAdminView: FC<IViewProps & IViewActions> = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => setTabIndex(newValue);
+  return (
+    <div className="d-flex flex-fill flex-column">
+      <Tabs className="no-shrink" value={tabIndex} onChange={handleChange} style={{ height: 25 }}>
+        <Tab label="Users" />
+        <Tab label="Roles" />
+        <Tab label="Resources" />
+      </Tabs>
+    </div>
+  );
+};
 
 //#region REDUX WIRING
 const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
