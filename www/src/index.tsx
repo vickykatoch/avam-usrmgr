@@ -2,11 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import "./flex.css"
-// import "font-awesome/css/font-awesome.min.css";
-// import "bootstrap/dist/css/bootstrap.css";
+import "./flex.css";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import * as serviceWorker from "./serviceWorker";
-
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

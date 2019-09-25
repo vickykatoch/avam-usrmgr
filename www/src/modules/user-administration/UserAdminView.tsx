@@ -5,6 +5,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
 import { Tab, Tabs } from "@material-ui/core";
+import ManageUsersView from "./components/user/ManageUsersView";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
@@ -27,6 +28,7 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
         <Tab label="Roles" />
         <Tab label="Resources" />
       </Tabs>
+      <ManageUsersView />
     </div>
   );
 };

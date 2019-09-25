@@ -1,5 +1,5 @@
 //#region IMPORTS
-import { IResource, IAppState, IUser } from "../models";
+import { IResource, IAppState } from "../models";
 import { ThunkAction } from "redux-thunk";
 import { AnyAction, Dispatch } from "redux";
 import UserDataApi from "../../api/user.api";

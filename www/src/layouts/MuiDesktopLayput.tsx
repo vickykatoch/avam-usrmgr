@@ -22,13 +22,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
+
 const barStyle = {
   borderRightWidth: "1px",
   borderLeftWidth: 0,
-  borderBottomWidth:0,
-  borderTopWidth:0,
-  borderStyle : "solid",
-}
+  borderBottomWidth: 0,
+  borderTopWidth: 0,
+  borderStyle: "solid"
+};
 
 const MuiDesktopLayout = () => {
   const classes = useStyles();
@@ -50,8 +51,7 @@ const MuiDesktopLayout = () => {
                 aria-label="account of current user"
                 aria-controls="primary-search-account-menu"
                 aria-haspopup="true"
-                color="inherit"
-              >
+                color="inherit">
                 <AccountCircle />
               </IconButton>
             </MenuItem>
