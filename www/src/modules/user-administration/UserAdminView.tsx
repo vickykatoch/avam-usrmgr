@@ -6,6 +6,7 @@ import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
 import { Tab, Tabs } from "@material-ui/core";
 import ManageUsersView from "./components/user/ManageUsersView";
+import ManageUserView from "./components/user/ManageUserView";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
@@ -28,6 +29,7 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
         <Tab label="Roles" />
         <Tab label="Resources" />
       </Tabs>
+      <ManageUserView />
       <ManageUsersView />
     </div>
   );

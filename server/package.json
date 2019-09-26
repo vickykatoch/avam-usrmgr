@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "nodemon ./src/index.js"
   },
   "dependencies": {
-    "json-server": "^0.15.1"
+    "json-server": "^0.15.1",
+    "nodemon": "^1.19.2"
   },
   "keywords": [],
   "author": "",

@@ -1,141 +1,179 @@
 //#region IMPORTS
-import React, { FC, useState, useEffect } from "react";
-import { withRouter, RouteComponentProps, NavLink, Redirect } from "react-router-dom";
-import { IUser, IAppState, IUserState, LoadStatus, SaveStatus } from "../../../../store/models";
+import React, { Component, memo } from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { IUserState, IUser, IAppState } from "../../../../store/models";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
+import { loadUsers, ackSave, saveUser } from "../../../../store/actions";
+import GridServiceProvider from "../../../../services/GridColumnProvider";
+import { GridCellButtonRenderer } from "../../../../common";
+import { AgGridReact } from "ag-grid-react";
+import { mapToArray } from "../../../../store/selectors/user-selectors";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+import { createStyles, makeStyles, Theme, withStyles } from "@material-ui/core/styles";
+import { fade } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import UserForm from "./UserForm";
-import { saveUser, loadUsers, ackSave } from "../../../../store/actions";
+import MuiDialogTitle, { DialogTitleProps } from "@material-ui/core/DialogTitle";
+import { Typography } from "@material-ui/core";
+import { GridApi, GridReadyEvent, ColumnApi, GridOptions } from "ag-grid-community";
 //#endregion
 
-//#region VIEW PROPS
+//#region VIEW TYPES
 interface IViewProps extends RouteComponentProps {
-  user: IUser;
   usersState: IUserState;
-  notFound?: boolean;
-  isNew?: boolean;
+  isLoading?: boolean;
+  classes: any;
 }
 interface IViewActions {
   loadUsers: () => void;
   ackSave: () => void;
   saveUser: (user: IUser, isNew?: boolean) => void;
 }
-const VIEW_WRAP = {
-  width: "400px"
-};
-
+const BOOL_FIELDS = ["active"];
 //#endregion
 
 //#region HELPERS
-const emptyUser = (): IUser => ({
-  id: "",
-  firstName: "",
-  lastName: "",
-  active: false
-});
-const notFoundRenderer = (id: string) => {
-  return <h3>User {id} is not found</h3>;
-};
-//#endregion
-
-//#region RENDERER
-const ManageUserView: FC<IViewProps & IViewActions> = ({ user, usersState, isNew, notFound, loadUsers, saveUser, ackSave, match }) => {
-  const [usr, setUser] = useState(user);
-  useEffect(() => {
-    usersState.loadStatus === LoadStatus.None && loadUsers();
-    if (usersState.loadStatus === LoadStatus.Loaded && usersState.saveStatus === SaveStatus.None && !isNew) {
-      setUser(user);
+const styles = (theme: Theme) =>
+  createStyles({
+    grow: {
+      flexGrow: 1
+    },
+    search: {
+      position: "relative",
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      "&:hover": {
+        backgroundColor: fade(theme.palette.common.white, 0.25)
+      },
+      marginRight: theme.spacing(2),
+      marginLeft: 0,
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(3),
+        width: "auto"
+      }
+    },
+    searchIcon: {
+      width: theme.spacing(7),
+      height: "100%",
+      position: "absolute",
+      pointerEvents: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    inputRoot: {
+      color: "inherit"
+    },
+    inputInput: {
+      padding: theme.spacing(1, 1, 1, 7),
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("md")]: {
+        width: 200
+      }
+    },
+    neDialog: {
+      width: 400
     }
-  }, [usersState]);
+  });
 
-  if (usersState.saveStatus === SaveStatus.Saved) {
-    ackSave();
-    return <Redirect to="/users" />;
-  }
-  if (notFound) {
-    return notFoundRenderer(user.id);
-  }
-  const isSaving = usersState.saveStatus === SaveStatus.Saving;
-  const handleChange = (evt: any) => {
-    const { target } = evt;
-    setUser({ ...usr, [target.name]: target.value });
-  };
-  const handleSave = () => saveUser(usr, isNew);
-
+const DialogTitle = (props: any) => {
+  const { children, isSaving } = props;
   return (
-    <div className="d-flex justify-content-center p-1" style={{ pointerEvents: isSaving ? "none" : "auto" }}>
-      <div className="d-flex flex-column" style={VIEW_WRAP}>
-        <div className="d-flex no-shrink mt-1">
-          <h3 className="flex-fill">{isNew ? "New User" : "Edit User"}</h3>
-          {isSaving && (
-            <div className="d-flex justify-content-end no-shrink ml-3 alert-primary">
-              <span>
-                <i className="fa fa-spin fa-spinner"></i> Saving. Please wait...
-              </span>
-            </div>
-          )}
+    <MuiDialogTitle disableTypography className="d-flex">
+      <Typography variant="h6" className="flex-fill">
+        {children}
+      </Typography>
+      {isSaving && (
+        <div className="no-shrink">
+          <span>Saving. Please wait...</span>
         </div>
-        {usersState.saveStatus === SaveStatus.Error && <div className="alert-danger">{usersState.saveError}</div>}
-        <div className="d-flex flex-fill flex-column mt-1">
-          <UserForm user={usr} onChange={handleChange}></UserForm>
-        </div>
-        <div className="d-flex no-shrink mt-4">
-          <div className="flex-fill"></div>
-          <div className="btn-group d-flex justify-content-end mt-1">
-            <button className="btn btn-sm btn-outline-primary" onClick={handleSave}>
-              Save
-            </button>
-            <NavLink className="btn btn-sm btn-outline-danger" to="/users">
-              Cancel
-            </NavLink>
-          </div>
-        </div>
-      </div>
-    </div>
+      )}
+    </MuiDialogTitle>
   );
 };
 //#endregion
 
-//#region REDUX WIRING
-const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
-  // @ts-ignore
-  const { id } = ownProps.match.params;
-  let resolvedProps: IViewProps;
-  const newUser = emptyUser();
-  if (id) {
-    if (+id === 0) {
-      resolvedProps = {
-        user: newUser,
-        usersState: state.userState,
-        isNew: true,
-        ...ownProps
-      };
-    } else {
-      const user = state.userState.loadStatus === LoadStatus.Loaded ? state.userState.users[id] : newUser;
-      if (user) {
-        resolvedProps = {
-          user: { ...user },
-          usersState: state.userState,
-          ...ownProps
-        };
-      } else {
-        resolvedProps = {
-          user: newUser,
-          usersState: state.userState,
-          notFound: true,
-          ...ownProps
-        };
-      }
-    }
-  } else {
-    resolvedProps = {
-      user: emptyUser(),
-      notFound: true,
-      usersState: state.userState,
-      ...ownProps
+class ManageUserView extends Component<IViewProps & IViewActions> {
+  public state: any;
+  private gridApi?: GridApi;
+  private colApi?: ColumnApi;
+  private gridOptions: GridOptions;
+
+  constructor(props: IViewProps & IViewActions) {
+    super(props);
+    this.gridOptions = {
+      columnDefs: GridServiceProvider.getColumns("UsersGrid"),
+      frameworkComponents: {
+        gridCellButtonRenderer: GridCellButtonRenderer
+      },
+      context: { componentParent: this }
     };
   }
-  return resolvedProps;
+  handleNewUser = () => {};
+  onGridReady = (event: GridReadyEvent) => {
+    this.gridApi = event.api;
+    this.colApi = event.columnApi;
+  };
+
+  componentDidMount() {}
+  componentWillUnmount() {}
+  // shouldComponentUpdate() : boolean {
+
+  // }
+  render() {
+    const { usersState, classes } = this.props;
+    const { columnDefs, frameworkComponents, context } = this.gridOptions;
+    const users = mapToArray(usersState.users);
+    
+    return (
+      <>
+        <div className="no-shrink p-1 d-flex align-items-center">
+          <div className="flex-fill">Users List</div>
+          <div className="no-shrink d-flex justify-content-end">
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+
+            <Fab color="primary" aria-label="add" size="small" onClick={this.handleNewUser}>
+              <AddIcon />
+            </Fab>
+          </div>
+        </div>
+        <div className="flex-fill ag-theme-balham">
+          <AgGridReact columnDefs={columnDefs}  frameworkComponents={frameworkComponents} context={context}></AgGridReact>
+          {/* <AgGridReact gridOptions={this.gridOptions}></AgGridReact> */}
+        </div>
+      </>
+    );
+  }
+}
+
+//#region REDUX WIRING
+const mapStateToProps = (state: IAppState, ownProps: any): IViewProps => {
+  return {
+    usersState: state.userState,
+    ...ownProps
+  };
 };
 const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, any, any>): IViewActions => {
   return {
@@ -149,5 +187,6 @@ const reduxConnect = connect(
   mapStateToProps,
   mapDispatchToProps
 );
-export default withRouter(reduxConnect(ManageUserView));
+const useStyles = withStyles(styles);
+export default useStyles(withRouter(reduxConnect(ManageUserView)));
 //#endregion

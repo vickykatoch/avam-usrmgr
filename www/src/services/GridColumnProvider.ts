@@ -1,9 +1,15 @@
 import { ColDef } from "ag-grid-community";
 
-class GridColumnProviderService {
+class GridServiceProvider {
   private gridsColumnMap = new Map<string, ColDef[]>();
+  
   constructor() {
     this.gridsColumnMap.set("UsersGrid", [
+      // {
+      //   cellRenderer:'gridCellButtonRenderer',
+      //   colId: 'action',
+      //   field:'value'
+      // },
       {
         headerName: "SID",
         field: "id",
@@ -36,4 +42,4 @@ class GridColumnProviderService {
     return (columns && columns) || [];
   }
 }
-export default new GridColumnProviderService();
+export default new GridServiceProvider();

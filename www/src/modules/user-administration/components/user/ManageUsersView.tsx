@@ -7,7 +7,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { connect } from "react-redux";
 import { AgGridReact } from "ag-grid-react";
 import { mapToArray } from "../../../../store/selectors/user-selectors";
-import GridColumnProvider from "../../../../services/GridColumnProvider";
+import GridServiceProvider from "../../../../services/GridColumnProvider";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -17,18 +17,18 @@ import { fade } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import UserForm from "./UserForm";
 import MuiDialogTitle, { DialogTitleProps } from "@material-ui/core/DialogTitle";
 import { Typography } from "@material-ui/core";
+import { GridOptions } from "ag-grid-community";
+import GridCellButtonRenderer from "../../../../common/components/grid/GridCellButtonRenderer";
 //#endregion
 
 //#region VIEW TYPES
 interface IViewProps extends RouteComponentProps {
-  usersState: IUserState;
-  columnDefs: any[];
+  usersState: IUserState;  
   isLoading?: boolean;
 }
 interface IViewActions {
@@ -40,6 +40,7 @@ interface INewOrEditUserState {
   isNew: boolean;
   user: IUser;
 }
+const BOOL_FIELDS = ["active"];
 //#endregion
 
 //#region HELPERS
@@ -88,7 +89,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-
+const gridOptions : GridOptions = {
+  frameworkComponents : {
+    gridCellButtonRenderer : GridCellButtonRenderer
+  }
+};
 const DialogTitle = (props: any) => {
   const { children, isSaving } = props;
   return (
@@ -108,14 +113,14 @@ const emptyUser = (): IUser => ({
   id: "",
   firstName: "",
   lastName: "",
-  active: false
+  active: true
 });
 //#endregion
 
 //#region RENDERER
 const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers, saveUser, ackSave }) => {
   const [neUser, setNewEditUser] = useState<INewOrEditUserState>();
-  const [columnDefs, setColDef] = useState(GridColumnProvider.getColumns("UsersGrid"));
+  const [columnDefs] = useState(GridServiceProvider.getColumns("UsersGrid"));
   const [isSaving, setSavingState] = useState(false);
 
   useEffect(() => {
@@ -133,6 +138,7 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
         break;
     }
   }, [usersState.loadStatus, usersState.saveStatus]);
+  
 
   const classes = useStyles();
 
@@ -145,10 +151,11 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
     }
   };
   const handleNewEditUserChange = (evt: any) => {
-    const { name, value } = evt.target;
     if (neUser) {
+      const { name, value, checked } = evt.target;
       const isNew = neUser.isNew;
-      setNewEditUser({ isNew, user: { ...neUser.user, [name]: value } });
+      let resolvedValue = BOOL_FIELDS.includes(name) ? checked : value;
+      setNewEditUser({ isNew, user: { ...neUser.user, [name]: resolvedValue } });
     }
   };
 
@@ -178,6 +185,7 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
       </div>
 
       <div className="flex-fill ag-theme-balham">
+        
         <AgGridReact columnDefs={columnDefs} rowData={users}></AgGridReact>
       </div>
       {neUser && (
@@ -186,7 +194,8 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
           disableEscapeKeyDown
           open={true}
           onClose={handleDialogClose}
-          style={{ pointerEvents: isSaving ? "none" : "auto" }}>
+          style={{ pointerEvents: isSaving ? "none" : "auto" }}
+        >
           <DialogTitle isSaving={isSaving}>
             <span className="flex-fill"> {neUser.isNew ? "New User" : "Modify User"}</span>
           </DialogTitle>
@@ -211,21 +220,7 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
 //#region REDUX WIRING
 const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
   return {
-    usersState: state.userState,
-    columnDefs: [
-      {
-        headerName: "Make",
-        field: "make"
-      },
-      {
-        headerName: "Model",
-        field: "model"
-      },
-      {
-        headerName: "Price",
-        field: "price"
-      }
-    ],
+    usersState: state.userState,    
     ...ownProps
   };
 };

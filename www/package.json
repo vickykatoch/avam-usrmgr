@@ -16,6 +16,7 @@
     "fontawesome": "^4.7.0",
     "history": "^4.10.1",
     "moment": "^2.24.0",
+    "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
