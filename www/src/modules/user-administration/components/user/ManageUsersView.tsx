@@ -24,11 +24,13 @@ import MuiDialogTitle, { DialogTitleProps } from "@material-ui/core/DialogTitle"
 import { Typography } from "@material-ui/core";
 import { GridOptions } from "ag-grid-community";
 import GridCellButtonRenderer from "../../../../common/components/grid/GridCellButtonRenderer";
+import UserListView from "./UserListView";
+import LinearProgress from "@material-ui/core/LinearProgress";
 //#endregion
 
 //#region VIEW TYPES
 interface IViewProps extends RouteComponentProps {
-  usersState: IUserState;  
+  usersState: IUserState;
   isLoading?: boolean;
 }
 interface IViewActions {
@@ -89,23 +91,18 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-const gridOptions : GridOptions = {
-  frameworkComponents : {
-    gridCellButtonRenderer : GridCellButtonRenderer
+const gridOptions: GridOptions = {
+  frameworkComponents: {
+    gridCellButtonRenderer: GridCellButtonRenderer
   }
 };
 const DialogTitle = (props: any) => {
-  const { children, isSaving } = props;
+  const { children } = props;
   return (
     <MuiDialogTitle disableTypography className="d-flex">
       <Typography variant="h6" className="flex-fill">
         {children}
       </Typography>
-      {isSaving && (
-        <div className="no-shrink">
-          <span>Saving. Please wait...</span>
-        </div>
-      )}
     </MuiDialogTitle>
   );
 };
@@ -120,7 +117,7 @@ const emptyUser = (): IUser => ({
 //#region RENDERER
 const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers, saveUser, ackSave }) => {
   const [neUser, setNewEditUser] = useState<INewOrEditUserState>();
-  const [columnDefs] = useState(GridServiceProvider.getColumns("UsersGrid"));
+
   const [isSaving, setSavingState] = useState(false);
 
   useEffect(() => {
@@ -138,12 +135,12 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
         break;
     }
   }, [usersState.loadStatus, usersState.saveStatus]);
-  
 
   const classes = useStyles();
 
   const users = mapToArray(usersState.users);
-  const handleNewUser = () => setNewEditUser({ isNew: true, user: emptyUser() });
+  const columns = GridServiceProvider.getColumns("UsersGrid");
+  const handleUser = (user?: IUser) => setNewEditUser({ isNew: !user, user: user || emptyUser() });
   const handleDialogClose = () => setNewEditUser(undefined);
   const handleSave = () => {
     if (neUser) {
@@ -158,7 +155,6 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
       setNewEditUser({ isNew, user: { ...neUser.user, [name]: resolvedValue } });
     }
   };
-
   return (
     <>
       <div className="no-shrink p-1 d-flex align-items-center">
@@ -177,30 +173,25 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-
-          <Fab color="primary" aria-label="add" size="small" onClick={handleNewUser}>
+          <Fab color="primary" aria-label="add" size="small" onClick={() => handleUser()}>
             <AddIcon />
           </Fab>
         </div>
       </div>
-
-      <div className="flex-fill ag-theme-balham">
-        
-        <AgGridReact columnDefs={columnDefs} rowData={users}></AgGridReact>
-      </div>
+      <UserListView columns={columns} users={users} onEdit={handleUser}></UserListView>
       {neUser && (
         <Dialog
           disableBackdropClick
           disableEscapeKeyDown
           open={true}
           onClose={handleDialogClose}
-          style={{ pointerEvents: isSaving ? "none" : "auto" }}
-        >
-          <DialogTitle isSaving={isSaving}>
+          style={{ pointerEvents: isSaving ? "none" : "auto" }}>
+          <DialogTitle>
             <span className="flex-fill"> {neUser.isNew ? "New User" : "Modify User"}</span>
+            <LinearProgress color="secondary" hidden={!isSaving} />
           </DialogTitle>
           <DialogContent dividers>
-            <UserForm user={neUser.user} onChange={handleNewEditUserChange} />
+            <UserForm user={neUser.user} onChange={handleNewEditUserChange} isNew={neUser.isNew} />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleDialogClose} color="primary">
@@ -220,7 +211,7 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
 //#region REDUX WIRING
 const mapStateToProps = (state: IAppState, ownProps: RouteComponentProps): IViewProps => {
   return {
-    usersState: state.userState,    
+    usersState: state.userState,
     ...ownProps
   };
 };

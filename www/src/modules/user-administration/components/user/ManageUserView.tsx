@@ -127,14 +127,12 @@ class ManageUserView extends Component<IViewProps & IViewActions> {
 
   componentDidMount() {}
   componentWillUnmount() {}
-  // shouldComponentUpdate() : boolean {
 
-  // }
   render() {
     const { usersState, classes } = this.props;
     const { columnDefs, frameworkComponents, context } = this.gridOptions;
     const users = mapToArray(usersState.users);
-    
+
     return (
       <>
         <div className="no-shrink p-1 d-flex align-items-center">
@@ -160,8 +158,7 @@ class ManageUserView extends Component<IViewProps & IViewActions> {
           </div>
         </div>
         <div className="flex-fill ag-theme-balham">
-          <AgGridReact columnDefs={columnDefs}  frameworkComponents={frameworkComponents} context={context}></AgGridReact>
-          {/* <AgGridReact gridOptions={this.gridOptions}></AgGridReact> */}
+          <AgGridReact columnDefs={columnDefs} frameworkComponents={frameworkComponents} context={context} rowData={users}></AgGridReact>
         </div>
       </>
     );

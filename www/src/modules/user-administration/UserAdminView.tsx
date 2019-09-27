@@ -29,7 +29,7 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
         <Tab label="Roles" />
         <Tab label="Resources" />
       </Tabs>
-      <ManageUserView />
+      {/* <ManageUserView /> */}
       <ManageUsersView />
     </div>
   );
