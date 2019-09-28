@@ -6,6 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 
 interface IViewProps {
+  title?: string;
   onNew: () => void;
   onSearchTextChange: (evt: any) => void;
 }
@@ -57,10 +58,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: FC<IViewProps> = (props: IViewProps) => {
   const classes = useStyles();
+  const { onNew, onSearchTextChange, title } = props;
+
   return (
     <div className="d-flex align-items-center no-shrink pl-1 pr-1">
       <div className="flex-fill">
-        <strong>Users List</strong>
+        <strong>{title}</strong>
       </div>
       <div className="no-shrink d-flex justify-content-end">
         <div className={classes.search}>
@@ -74,9 +77,10 @@ const Header: FC<IViewProps> = (props: IViewProps) => {
               input: classes.inputInput
             }}
             inputProps={{ "aria-label": "search" }}
+            onChange={onSearchTextChange}
           />
         </div>
-        <Fab color="primary" aria-label="add" size="small" onClick={() => {}}>
+        <Fab color="primary" aria-label="add" size="small" onClick={() => onNew()}>
           <AddIcon />
         </Fab>
       </div>

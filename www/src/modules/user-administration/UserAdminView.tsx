@@ -29,7 +29,11 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
         <Tab label="Roles" />
         <Tab label="Resources" />
       </Tabs>
-      <TabPanel selectedIndex={tabIndex} index={0}>
+      {tabIndex === 0 && <ManageUsersView />}
+      {tabIndex === 1 && (<h1>Roles</h1>)}
+      {tabIndex === 2 && (<h1>Resources</h1>)}
+      
+      {/* <TabPanel selectedIndex={tabIndex} index={0}>
         <ManageUsersView />
       </TabPanel>
       <TabPanel selectedIndex={tabIndex} index={1}>
@@ -37,7 +41,7 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
       </TabPanel>
       <TabPanel selectedIndex={tabIndex} index={2}>
         Resource
-      </TabPanel>
+      </TabPanel> */}
     </div>
   );
 };
