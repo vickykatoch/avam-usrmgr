@@ -4,9 +4,9 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
 import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
-import { Tab, Tabs } from "@material-ui/core";
+import { Tab, Tabs, Typography, Box } from "@material-ui/core";
 import ManageUsersView from "./components/user/ManageUsersView";
-import ManageUserView from "./components/user/ManageUserView";
+import TabPanel from "../../common/components/TabPanel";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
@@ -29,8 +29,15 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
         <Tab label="Roles" />
         <Tab label="Resources" />
       </Tabs>
-      {/* <ManageUserView /> */}
-      <ManageUsersView />
+      <TabPanel selectedIndex={tabIndex} index={0}>
+        <ManageUsersView />
+      </TabPanel>
+      <TabPanel selectedIndex={tabIndex} index={1}>
+        Roles
+      </TabPanel>
+      <TabPanel selectedIndex={tabIndex} index={2}>
+        Resource
+      </TabPanel>
     </div>
   );
 };

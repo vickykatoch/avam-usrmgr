@@ -61,7 +61,7 @@ const MuiDesktopLayout = () => {
           <div className="d-flex flex-column flex-shrink-0" style={barStyle}>
             <MainMenuSideBar></MainMenuSideBar>
           </div>
-          <div className="d-flex flex-fill v-scroll p-2">
+          <div className="d-flex flex-fill">
             <Switch>
               <Route path="/users" component={UserAdminView} />
               <Route path="/logmanager" component={LogManagerHomeView} />

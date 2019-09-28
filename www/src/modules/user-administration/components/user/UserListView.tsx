@@ -18,40 +18,38 @@ interface IViewProps {
 const UserList: FC<IViewProps> = props => {
   const { columns, users, onEdit } = props;
   return (
-    <Paper className="d-flex flex-fill v-scroll">
-      <Table stickyHeader>
-        <TableHead color="secondary">
-          <TableRow>
-            {columns.map(column => (
-              <TableCell key={column.field} align={column.align} style={{ minWidth: column.minWidth }}>
-                {column.label}
+    <Table stickyHeader>
+      <TableHead>
+        <TableRow>
+          {columns.map(column => (
+            <TableCell key={column.field} align={column.align} style={{ minWidth: column.minWidth }}>
+              {column.label}
+            </TableCell>
+          ))}
+          <TableCell key="edit" style={{ minWidth: 100 }} align="right"></TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {users.map(user => {
+          return (
+            <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+              {columns.map(column => {
+                return (
+                  <TableCell padding="none" key={column.field} align={column.align}>
+                    {column.format(user)}
+                  </TableCell>
+                );
+              })}
+              <TableCell key="edit" align="right" padding="none">
+                <Button color="primary" onClick={() => onEdit(user)}>
+                  Edit
+                </Button>
               </TableCell>
-            ))}
-            <TableCell key="edit" style={{ minWidth: 100 }} align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map(user => {
-            return (
-              <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
-                {columns.map(column => {
-                  return (
-                    <TableCell padding="none" key={column.field} align={column.align}>
-                      {column.format(user)}
-                    </TableCell>
-                  );
-                })}
-                <TableCell key="edit" align="right" padding="none">
-                  <Button color="primary" onClick={() => onEdit(user)}>
-                    Edit
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };
 
