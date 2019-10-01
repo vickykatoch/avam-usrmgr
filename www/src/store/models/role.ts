@@ -7,7 +7,6 @@ export interface IRole {
   active?: boolean;
   lastUpdate?: number;
   lastUpdatedBy?: string;
-  acl: number;
 }
 
 export interface IRoleState {

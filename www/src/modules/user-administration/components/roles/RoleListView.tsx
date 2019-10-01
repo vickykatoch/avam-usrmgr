@@ -5,17 +5,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { IColumn } from "../../../../services/GridColumnProvider";
-import { IUser } from "../../../../store/models";
+import { IRole } from "../../../../store/models";
 import { Button } from "@material-ui/core";
 
 interface IViewProps {
   columns: IColumn[];
-  users: IUser[];
-  onEdit: (user: IUser) => void;
+  roles: IRole[];
+  onEdit: (role: IRole) => void;
 }
 
-const UserList: FC<IViewProps> = props => {
-  const { columns, users, onEdit } = props;
+const RoleListView: FC<IViewProps> = props => {
+  const { columns, roles, onEdit } = props;
   return (
     <Table stickyHeader>
       <TableHead>
@@ -29,18 +29,18 @@ const UserList: FC<IViewProps> = props => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {users.map(user => {
+        {roles.map(role => {
           return (
-            <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
+            <TableRow hover role="checkbox" tabIndex={-1} key={role.id}>
               {columns.map(column => {
                 return (
                   <TableCell padding="none" key={column.field} align={column.align}>
-                    {column.format(user)}
+                    {column.format(role)}
                   </TableCell>
                 );
               })}
               <TableCell key="edit" align="right" padding="none">
-                <Button color="primary" onClick={() => onEdit(user)}>
+                <Button color="primary" onClick={() => onEdit(role)}>
                   Edit
                 </Button>
               </TableCell>
@@ -51,5 +51,4 @@ const UserList: FC<IViewProps> = props => {
     </Table>
   );
 };
-
-export default UserList;
+export default RoleListView;

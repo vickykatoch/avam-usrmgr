@@ -58,11 +58,11 @@ export function loadResources(): ThunkAction<Promise<void>, IAppState, null, Any
     try {
       dispatch({ type: ResourceActionType.LOADING_RESOURCES });
       const response = await UserDataApi.fetchResources();
-      const roles = response.reduce((acc: Record<string, any>, role: IResource) => {
-        acc[role.id] = role;
+      const resources = response.reduce((acc: Record<string, any>, resource: IResource) => {
+        acc[resource.id] = resource;
         return acc;
       }, {});
-      dispatch({ type: ResourceActionType.LOADING_RESOURCES_SUCCESS, roles });
+      dispatch({ type: ResourceActionType.LOADING_RESOURCES_SUCCESS, resources });
     } catch (error) {
       dispatch({
         type: ResourceActionType.LOADING_RESOURCES_FAILED,

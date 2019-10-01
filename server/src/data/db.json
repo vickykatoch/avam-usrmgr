@@ -1,6 +1,5 @@
 {
-  "users": [
-    {
+  "users": [{
       "id": "D573333",
       "firstName": "Balwinder",
       "lastName": "Katoch",
@@ -28,9 +27,9 @@
       "id": "A",
       "firstName": "B",
       "lastName": "C",
-      "active": false,
+      "active": true,
       "createdAt": 1569582694978,
-      "lastUpdate": 1569673020598
+      "lastUpdate": 1569881469084
     },
     {
       "id": "D",
@@ -105,63 +104,62 @@
       "lastUpdate": 1569582779247
     }
   ],
-  "resources": [
-    {
+  "resources": [{
       "id": 1,
       "name": "SPDR Parameters",
-      "restricted": true,
       "active": true
     },
     {
       "id": 2,
       "name": "Strategy Parameters",
-      "restricted": false,
       "active": true
     },
     {
       "id": 3,
       "name": "Market Watch",
-      "restricted": false,
       "active": true
     },
     {
       "id": 4,
       "name": "Market Ladder",
-      "restricted": true,
       "active": true
     },
     {
       "id": 5,
       "name": "Order Blotter",
-      "restricted": true,
       "active": true
     }
   ],
-  "roles": [
-    {
+  "roles": [{
       "id": 1,
       "name": "Administrator",
       "supreme": true,
-      "active": true,
-      "acl": 32
+      "active": true
     },
     {
       "id": 2,
       "name": "Dev Admin",
-      "supreme": false,
+      "supreme": true,
       "active": true,
-      "acl": 16
+      "lastUpdate": 1569881818421
     },
     {
       "id": 3,
       "name": "Trader",
-      "supreme": false,
+      "supreme": true,
       "active": true,
-      "acl": 8
+      "lastUpdate": 1569881823741
+    },
+    {
+      "id": "4",
+      "name": "Super Admin",
+      "active": true,
+      "supreme": false,
+      "createdAt": 1569881853014,
+      "lastUpdate": 1569881853018
     }
   ],
-  "roleResources": [
-    {
+  "roleResources": [{
       "role": 1,
       "resources": [
         1,
@@ -180,8 +178,7 @@
       ]
     }
   ],
-  "roleUsers": [
-    {
+  "roleUsers": [{
       "role": 1,
       "users": [
         "D573333"
@@ -195,11 +192,9 @@
       ]
     }
   ],
-  "userOverrides": [
-    {
-      "user": "D573333",
-      "resource": 1,
-      "acl": 16
-    }
-  ]
+  "userOverrides": [{
+    "user": "D573333",
+    "resource": 1,
+    "acl": 16
+  }]
 }

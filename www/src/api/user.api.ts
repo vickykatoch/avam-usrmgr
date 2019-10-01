@@ -50,6 +50,24 @@ class UserDataApi {
       throw new Error(`Server error : ${response.status} => ${response.statusText}`);
     }
   }
+  async upsertRole(role: any, isNew?: boolean): Promise<any> {
+    const url = isNew ? `${BASE_URL}/roles` : `${BASE_URL}/roles/${role.id}`;
+    const method = isNew ? "post" : "put";
+    const response = await fetch(url, {
+      method,
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(role)
+    });
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error(`Server error : ${response.status} => ${response.statusText}`);
+    }
+  }
 }
 
 export default new UserDataApi();

@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { IUser } from "../../../../store/models";
-import TextInput from "../../../../common/components/TextInput";
 import TextField from "@material-ui/core/TextField";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 

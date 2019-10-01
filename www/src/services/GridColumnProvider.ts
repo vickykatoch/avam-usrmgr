@@ -54,6 +54,17 @@ class GridServiceProvider {
       { field: "lastName", label: "Last Name", align: "center", minWidth: 100, format: data => data["lastName"] },
       { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" }
     ]);
+    this.tableColumns.set("RolesGrid", [
+      { field: "id", label: "ID", align: "center", minWidth: 100, format: data => data["id"] },
+      { field: "name", label: "Name", align: "left", minWidth: 100, format: data => data["name"] },
+      { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" },
+      { field: "supreme", label: "Is Super Admin", align: "center", minWidth: 100, format: data => (data["supreme"] && "true") || "false" }
+    ]);
+    this.tableColumns.set("ResourcesGrid", [
+      { field: "id", label: "ID", align: "center", minWidth: 100, format: data => data["id"] },
+      { field: "name", label: "Name", align: "left", minWidth: 100, format: data => data["name"] },
+      { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" }
+    ]);
   }
 
   public getColumns(gridName: string): IColumn[] {

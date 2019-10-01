@@ -6,7 +6,8 @@ import { loadUsers, saveUser } from "../../store/actions";
 import { connect } from "react-redux";
 import { Tab, Tabs, Typography, Box } from "@material-ui/core";
 import ManageUsersView from "./components/user/ManageUsersView";
-import TabPanel from "../../common/components/TabPanel";
+import ManageRolesView from "./components/roles/ManageRolesView";
+import ManageResourcesView from "./components/resources/ManageResourcesView";
 
 //#region View Types
 interface IViewProps extends RouteComponentProps {
@@ -30,18 +31,8 @@ const UserAdminView: FC<IViewProps & IViewActions> = () => {
         <Tab label="Resources" />
       </Tabs>
       {tabIndex === 0 && <ManageUsersView />}
-      {tabIndex === 1 && (<h1>Roles</h1>)}
-      {tabIndex === 2 && (<h1>Resources</h1>)}
-      
-      {/* <TabPanel selectedIndex={tabIndex} index={0}>
-        <ManageUsersView />
-      </TabPanel>
-      <TabPanel selectedIndex={tabIndex} index={1}>
-        Roles
-      </TabPanel>
-      <TabPanel selectedIndex={tabIndex} index={2}>
-        Resource
-      </TabPanel> */}
+      {tabIndex === 1 && <ManageRolesView />}
+      {tabIndex === 2 && <ManageResourcesView />}
     </div>
   );
 };

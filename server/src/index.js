@@ -21,26 +21,26 @@ server.use((req, res, next) => {
 });
 
 server.post("/users", function (req, res, next) {
-  // const error = validateCourse(req.body);
-  // if (error) {
-  //   res.status(400).send(error);
-  // } else {
   console.log(req.body);
   req.body.lastUpdate = Date.now();
   next();
 
 });
 server.put("/users/:id", function (req, res, next) {
-  // const error = validateCourse(req.body);
-  // if (error) {
-  //   res.status(400).send(error);
-  // } else {
-  // debugger;
   console.log(req.body);
   req.body.lastUpdate = Date.now();
   next();
+});
+server.post("/roles", function (req, res, next) {
+  console.log(req.body);
+  req.body.lastUpdate = Date.now();
+  next();
+});
 
-  // }
+server.put("/roles/:id", function (req, res, next) {
+  console.log(req.body);
+  req.body.lastUpdate = Date.now();
+  next();
 });
 
 server.use(router);

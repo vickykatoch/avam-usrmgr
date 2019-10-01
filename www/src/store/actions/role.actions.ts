@@ -74,5 +74,18 @@ export function loadRoles(): ThunkAction<Promise<void>, IAppState, null, AnyActi
 export function ackRoleSave(): AckSaveRoleAction {
   return { type: RoleActionType.ACK_ROLE_SAVE };
 }
-export function saveRole(role: IRole, isNew?: boolean) {}
+
+export function saveRole(role: IRole, isNew?: boolean): ThunkAction<Promise<void>, IAppState, null, AnyAction> {
+  return async (dispatch: Dispatch<AnyAction>, getState: any) => {
+    try {
+      dispatch({ type: RoleActionType.SAVING_ROLE });
+      // debugger;
+      const updatedRole = await UserDataApi.upsertRole(role, isNew);
+      dispatch({ type: RoleActionType.SAVING_ROLE_SUCCESS, role: updatedRole });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: RoleActionType.SAVING_ROLE_FAILED, error: error.message });
+    }
+  };
+}
 //#endregion
