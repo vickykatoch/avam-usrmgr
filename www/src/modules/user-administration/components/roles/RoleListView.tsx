@@ -17,7 +17,7 @@ interface IViewProps {
 const RoleListView: FC<IViewProps> = props => {
   const { columns, roles, onEdit } = props;
   return (
-    <Table stickyHeader>
+    <Table stickyHeader size="small">
       <TableHead>
         <TableRow>
           {columns.map(column => (

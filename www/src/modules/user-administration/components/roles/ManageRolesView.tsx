@@ -51,15 +51,13 @@ const ManageRolesView: FC<IViewProps & IViewActions> = props => {
     if (rolesState.saveStatus === SaveStatus.Saved) {
       setSavingState(false);
       setNERole(undefined);
-      ackSave();
+      props.ackSave();
       setRoles(mapToArray(rolesState.roles));
     }
   }, [rolesState.saveStatus, rolesState.loadStatus]);
   const handleRoleNewEditAction = (role?: IRole) => setNERole({ isNew: !role, role: role || emptyRole() });
   const handleSave = () => {
     if (neRole) {
-      //Validate
-      // debugger;
       props.saveRole(neRole.role, neRole.isNew);
     }
   };
@@ -75,11 +73,16 @@ const ManageRolesView: FC<IViewProps & IViewActions> = props => {
   return (
     <div className="d-flex flex-fill flex-column v-scroll">
       <Header onNew={handleNewRoleClick} onSearchTextChange={handleSearchChange} title="Manage Roles"></Header>
-      <div className="d-flex flex-fill">
+      <div className="d-flex flex-fill v-scroll">
         <RoleListView columns={columns} roles={roles} onEdit={handleRoleNewEditAction} />
       </div>
       {neRole && (
-        <FormDialog open={true} title="New Role" onCancel={handleCancel} onSubmit={handleSave} isBusy={isSaving}>
+        <FormDialog
+          open={true}
+          title={neRole.isNew ? "New Role" : "Edit Role"}
+          onCancel={handleCancel}
+          onSubmit={handleSave}
+          isBusy={isSaving}>
           <RoleForm role={neRole.role} isNew={neRole.isNew || false} onChange={handleInputChange} />
         </FormDialog>
       )}

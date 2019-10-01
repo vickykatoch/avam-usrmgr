@@ -1,165 +1,217 @@
 {
-  "users": [{
+  "users": [
+    {
       "id": "D573333",
       "firstName": "Balwinder",
       "lastName": "Katoch",
       "active": true,
-      "lastUpdate": 1569672528927,
-      "lastUpdatedBy": "U567789"
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569968043461,
+      "updatedBy": "D456723"
     },
     {
       "id": "U567789",
       "firstName": "MAMTA C",
       "lastName": "Katoch",
       "active": true,
-      "lastUpdate": 1569672525491,
-      "lastUpdatedBy": "U567789"
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569968047881,
+      "updatedBy": "D456723"
     },
     {
       "id": "XYZEF",
       "firstName": "ARYAN",
       "lastName": "KATOCH",
       "active": true,
-      "createdAt": 1569166783264,
-      "lastUpdate": 1569673015871
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "A",
       "firstName": "B",
       "lastName": "C",
       "active": true,
-      "createdAt": 1569582694978,
-      "lastUpdate": 1569881469084
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "D",
-      "firstName": "E",
+      "firstName": "Efg",
       "lastName": "F",
       "active": true,
-      "createdAt": 1569582703078,
-      "lastUpdate": 1569582703078
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569966000245
     },
     {
       "id": "G",
       "firstName": "H",
       "lastName": "I",
       "active": false,
-      "createdAt": 1569582711712,
-      "lastUpdate": 1569672543832
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "J",
       "firstName": "K",
       "lastName": "L",
       "active": true,
-      "createdAt": 1569582719032,
-      "lastUpdate": 1569582719032
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "M",
       "firstName": "N",
       "lastName": "O",
       "active": true,
-      "createdAt": 1569582727082,
-      "lastUpdate": 1569582727083
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "P",
       "firstName": "Q",
       "lastName": "R",
       "active": true,
-      "createdAt": 1569582734667,
-      "lastUpdate": 1569582734667
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569968055465,
+      "updatedBy": "D456723"
     },
     {
       "id": "S",
       "firstName": "T",
       "lastName": "U",
       "active": true,
-      "createdAt": 1569582744315,
-      "lastUpdate": 1569582744315
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "V",
       "firstName": "X",
       "lastName": "Y",
       "active": true,
-      "createdAt": 1569582754374,
-      "lastUpdate": 1569582754374
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569968051874,
+      "updatedBy": "D456723"
     },
     {
       "id": "Z",
       "firstName": "A",
       "lastName": "B",
       "active": true,
-      "createdAt": 1569582766363,
-      "lastUpdate": 1569582766363
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     },
     {
       "id": "C",
       "firstName": "D",
       "lastName": "E",
       "active": true,
-      "createdAt": 1569582779246,
-      "lastUpdate": 1569582779247
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
+    },
+    {
+      "id": "AA",
+      "firstName": "AA",
+      "lastName": "AA",
+      "active": true,
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
+    },
+    {
+      "id": "BB",
+      "firstName": "BB",
+      "lastName": "BB",
+      "active": true,
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569964982965
     }
   ],
-  "resources": [{
+  "resources": [
+    {
       "id": 1,
       "name": "SPDR Parameters",
-      "active": true
+      "active": true,
+      "createdOn": 1569964982965,
+      "lastUpdatedOn": 1569967732655,
+      "updatedBy": "D456723"
     },
     {
       "id": 2,
       "name": "Strategy Parameters",
-      "active": true
+      "active": true,
+      "createdOn": 1569965000882,
+      "lastUpdatedOn": 1569967735211,
+      "updatedBy": "D456723"
     },
     {
       "id": 3,
       "name": "Market Watch",
-      "active": true
+      "active": true,
+      "createdOn": 1569965013383,
+      "lastUpdatedOn": 1569967927894,
+      "updatedBy": "D456723"
     },
     {
       "id": 4,
       "name": "Market Ladder",
-      "active": true
+      "active": true,
+      "createdOn": 1569965006209,
+      "lastUpdatedOn": 1569967933512,
+      "updatedBy": "D456723"
     },
     {
       "id": 5,
       "name": "Order Blotter",
-      "active": true
+      "active": false,
+      "createdOn": 1569965008789,
+      "lastUpdatedOn": 1569965527876
+    },
+    {
+      "id": "6",
+      "name": "wer",
+      "active": false,
+      "createdOn": 1569965011070,
+      "lastUpdatedOn": 1569967930861,
+      "updatedBy": "D456723"
     }
   ],
-  "roles": [{
+  "roles": [
+    {
       "id": 1,
       "name": "Administrator",
       "supreme": true,
-      "active": true
+      "active": true,
+      "createdOn": 1569965123498,
+      "lastUpdatedOn": 1569968107423,
+      "updatedBy": "D456723"
     },
     {
       "id": 2,
       "name": "Dev Admin",
       "supreme": true,
       "active": true,
-      "lastUpdate": 1569881818421
+      "createdOn": 1569965125734,
+      "lastUpdatedOn": 1569965125734
     },
     {
       "id": 3,
       "name": "Trader",
       "supreme": true,
       "active": true,
-      "lastUpdate": 1569881823741
+      "createdOn": 1569965127949,
+      "lastUpdatedOn": 1569968110130,
+      "updatedBy": "D456723"
     },
     {
       "id": "4",
       "name": "Super Admin",
       "active": true,
       "supreme": false,
-      "createdAt": 1569881853014,
-      "lastUpdate": 1569881853018
+      "createdOn": 1569965130076,
+      "lastUpdatedOn": 1569965130076
     }
   ],
-  "roleResources": [{
+  "roleResources": [
+    {
       "role": 1,
       "resources": [
         1,
@@ -178,7 +230,8 @@
       ]
     }
   ],
-  "roleUsers": [{
+  "roleUsers": [
+    {
       "role": 1,
       "users": [
         "D573333"
@@ -192,9 +245,11 @@
       ]
     }
   ],
-  "userOverrides": [{
-    "user": "D573333",
-    "resource": 1,
-    "acl": 16
-  }]
+  "userOverrides": [
+    {
+      "user": "D573333",
+      "resource": 1,
+      "acl": 16
+    }
+  ]
 }

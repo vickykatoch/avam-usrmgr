@@ -82,11 +82,16 @@ const ManageUsersView: FC<IViewProps & IViewActions> = ({ usersState, loadUsers,
   return (
     <div className="d-flex flex-fill flex-column v-scroll">
       <Header onNew={handleUser} onSearchTextChange={handleSearchChange} title="User List"></Header>
-      <div className="d-flex flex-fill">
+      <div className="d-flex flex-fill v-scroll">
         <UserListView columns={columns} users={users} onEdit={handleUser}></UserListView>
       </div>
       {neUser && (
-        <FormDialog open={true} title="New User" onCancel={handleCancel} onSubmit={handleSave} isBusy={isSaving}>
+        <FormDialog
+          open={true}
+          title={neUser.isNew ? "New User" : "Edit User"}
+          onCancel={handleCancel}
+          onSubmit={handleSave}
+          isBusy={isSaving}>
           <UserForm user={neUser.user} onChange={handleUserStateChange} isNew={neUser.isNew} />
         </FormDialog>
       )}

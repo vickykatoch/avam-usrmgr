@@ -1,4 +1,5 @@
 import { ColDef, ICellRendererParams } from "ag-grid-community";
+import { formatDate, DateFormats } from "../common/utils/date-utils";
 
 export interface IColumn {
   field: string;
@@ -49,21 +50,91 @@ class GridServiceProvider {
       }
     ]);
     this.tableColumns.set("UsersGrid", [
-      { field: "id", label: "SID", align: "center", minWidth: 100, format: data => data["id"] },
-      { field: "firstName", label: "First Name", align: "center", minWidth: 100, format: data => data["firstName"] },
-      { field: "lastName", label: "Last Name", align: "center", minWidth: 100, format: data => data["lastName"] },
-      { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" }
+      { field: "id", label: "SID", align: "left", minWidth: 100, format: data => data["id"] },
+      { field: "firstName", label: "First Name", align: "left", minWidth: 100, format: data => data["firstName"] },
+      { field: "lastName", label: "Last Name", align: "left", minWidth: 100, format: data => data["lastName"] },
+      { field: "active", label: "Is Active", align: "left", minWidth: 100, format: data => (data["active"] && "true") || "false" },
+      {
+        field: "createdOn",
+        label: "Create Date",
+        align: "center",
+        minWidth: 100,
+        format: data => data["createdOn"] && formatDate(data["createdOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "lastUpdatedOn",
+        label: "Last Update",
+        align: "center",
+        minWidth: 100,
+        format: data => data["lastUpdatedOn"] && formatDate(data["lastUpdatedOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "updatedBy",
+        label: "Update By",
+        align: "left",
+        minWidth: 100,
+        format: data => data["updatedBy"]
+      }
     ]);
     this.tableColumns.set("RolesGrid", [
-      { field: "id", label: "ID", align: "center", minWidth: 100, format: data => data["id"] },
+      { field: "id", label: "ID", align: "left", minWidth: 100, format: data => data["id"] },
       { field: "name", label: "Name", align: "left", minWidth: 100, format: data => data["name"] },
       { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" },
-      { field: "supreme", label: "Is Super Admin", align: "center", minWidth: 100, format: data => (data["supreme"] && "true") || "false" }
+      { field: "supreme", label: "Is Super Admin", align: "center", minWidth: 100, format: data => (data["supreme"] && "true") || "false" },
+      {
+        field: "createdOn",
+        label: "Create Date",
+        align: "right",
+        minWidth: 100,
+        format: data => data["createdOn"] && formatDate(data["createdOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "createdOn",
+        label: "Create Date",
+        align: "center",
+        minWidth: 100,
+        format: data => data["createdOn"] && formatDate(data["createdOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "lastUpdatedOn",
+        label: "Last Update",
+        align: "center",
+        minWidth: 100,
+        format: data => data["lastUpdatedOn"] && formatDate(data["lastUpdatedOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "updatedBy",
+        label: "Update By",
+        align: "left",
+        minWidth: 100,
+        format: data => data["updatedBy"]
+      }
     ]);
     this.tableColumns.set("ResourcesGrid", [
-      { field: "id", label: "ID", align: "center", minWidth: 100, format: data => data["id"] },
+      { field: "id", label: "ID", align: "left", minWidth: 100, format: data => data["id"] },
       { field: "name", label: "Name", align: "left", minWidth: 100, format: data => data["name"] },
-      { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" }
+      { field: "active", label: "Is Active", align: "center", minWidth: 100, format: data => (data["active"] && "true") || "false" },
+      {
+        field: "createdOn",
+        label: "Create Date",
+        align: "center",
+        minWidth: 100,
+        format: data => data["createdOn"] && formatDate(data["createdOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "lastUpdatedOn",
+        label: "Last Update",
+        align: "center",
+        minWidth: 100,
+        format: data => data["lastUpdatedOn"] && formatDate(data["lastUpdatedOn"], DateFormats.DateTimeAmPm)
+      },
+      {
+        field: "updatedBy",
+        label: "Update By",
+        align: "left",
+        minWidth: 100,
+        format: data => data["updatedBy"]
+      }
     ]);
   }
 

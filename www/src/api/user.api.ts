@@ -40,7 +40,8 @@ class UserDataApi {
       mode: "cors",
       cache: "no-cache",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        sender: "D456723"
       },
       body: JSON.stringify(user)
     });
@@ -58,9 +59,29 @@ class UserDataApi {
       mode: "cors",
       cache: "no-cache",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        sender: "D456723"
       },
       body: JSON.stringify(role)
+    });
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error(`Server error : ${response.status} => ${response.statusText}`);
+    }
+  }
+  async upsertResource(resource: any, isNew?: boolean): Promise<any> {
+    const url = isNew ? `${BASE_URL}/resources` : `${BASE_URL}/resources/${resource.id}`;
+    const method = isNew ? "post" : "put";
+    const response = await fetch(url, {
+      method,
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+        sender: "D456723"
+      },
+      body: JSON.stringify(resource)
     });
     if (response.ok) {
       return await response.json();

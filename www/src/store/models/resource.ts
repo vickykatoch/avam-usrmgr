@@ -1,10 +1,12 @@
 import { LoadStatus, SaveStatus } from "./load-status";
 
 export interface IResource {
-  id: number;
+  id: string;
   name: string;
   restricted?: boolean;
   active?: boolean;
+  createdOn?: number;
+  lastUpdatedOn?: number;
 }
 
 export interface IResourcesState {

@@ -74,5 +74,17 @@ export function loadResources(): ThunkAction<Promise<void>, IAppState, null, Any
 export function ackResourceSave(): AckSaveResourceAction {
   return { type: ResourceActionType.ACK_RESOURCE_SAVE };
 }
-export function saveResource(role: IResource, isNew?: boolean) {}
+
+export function saveResource(resource: IResource, isNew?: boolean): ThunkAction<Promise<void>, IAppState, null, AnyAction> {
+  return async (dispatch: Dispatch<AnyAction>, getState: any) => {
+    try {
+      dispatch({ type: ResourceActionType.SAVING_RESOURCE });
+      const updatedResource = await UserDataApi.upsertResource(resource, isNew);
+      dispatch({ type: ResourceActionType.SAVING_RESOURCE_SUCCESS, resource: updatedResource });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: ResourceActionType.SAVING_RESOURCE_FAILED, error: error.message });
+    }
+  };
+}
 //#endregion
